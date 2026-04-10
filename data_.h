@@ -43,6 +43,7 @@ struct AdminAccount {
 const int MAX_EMPLOYEES = 100;
 const int MAX_ATTENDANCE = 200;
 const int MAX_ADMINS = 2;
+const double TaxRate = 0.14, WorkHoursPerDay = 8, WorkHoursPerMonth = 160, BasicSalary = 8000;
 
 // =======================
 // Arrays

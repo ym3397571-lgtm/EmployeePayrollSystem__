@@ -1,0 +1,6 @@
+﻿  admin.cpp
+C:\Users\GamerHH\Desktop\repos\admin.cpp(3,10): error C1083: Cannot open include file: 'helpers.h': No such file or directory
+  employee.cpp
+C:\Users\GamerHH\Desktop\repos\employee.cpp(3,10): error C1083: Cannot open include file: 'helpers.h': No such file or directory
+  EmployeePayrollSystem.cpp
+  Generating Code...

@@ -18,6 +18,16 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="admin.h" />
+    <ClInclude Include="data.h" />
+    <ClInclude Include="employee.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="admin.cpp" />
+    <ClCompile Include="employee.cpp" />
+    <ClCompile Include="EmployeePayrollSystem.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -122,16 +132,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\..\Desktop\repos\admin.cpp" />
-    <ClCompile Include="..\..\..\..\Desktop\repos\employee.cpp" />
-    <ClCompile Include="..\..\..\..\Desktop\repos\EmployeePayrollSystem.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\..\Desktop\repos\admin.h" />
-    <ClInclude Include="..\..\..\..\Desktop\repos\data.h" />
-    <ClInclude Include="..\..\..\..\Desktop\repos\employee.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

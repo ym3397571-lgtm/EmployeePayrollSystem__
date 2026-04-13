@@ -1,6 +1,13 @@
-﻿  admin.cpp
-C:\Users\GamerHH\Desktop\repos\admin.cpp(3,10): error C1083: Cannot open include file: 'helpers.h': No such file or directory
-  employee.cpp
-C:\Users\GamerHH\Desktop\repos\employee.cpp(3,10): error C1083: Cannot open include file: 'helpers.h': No such file or directory
-  EmployeePayrollSystem.cpp
-  Generating Code...
+﻿employee.obj : error LNK2005: "int employeeCount" (?employeeCount@@3HA) already defined in admin.obj
+employee.obj : error LNK2005: "int attendanceCount" (?attendanceCount@@3HA) already defined in admin.obj
+employee.obj : error LNK2005: "int adminCount" (?adminCount@@3HA) already defined in admin.obj
+employee.obj : error LNK2005: "struct Employee * employees" (?employees@@3PAUEmployee@@A) already defined in admin.obj
+employee.obj : error LNK2005: "struct Attendance * attendanceRecords" (?attendanceRecords@@3PAUAttendance@@A) already defined in admin.obj
+employee.obj : error LNK2005: "struct AdminAccount * admins" (?admins@@3PAUAdminAccount@@A) already defined in admin.obj
+EmployeePayrollSystem.obj : error LNK2005: "int employeeCount" (?employeeCount@@3HA) already defined in admin.obj
+EmployeePayrollSystem.obj : error LNK2005: "int attendanceCount" (?attendanceCount@@3HA) already defined in admin.obj
+EmployeePayrollSystem.obj : error LNK2005: "int adminCount" (?adminCount@@3HA) already defined in admin.obj
+EmployeePayrollSystem.obj : error LNK2005: "struct Employee * employees" (?employees@@3PAUEmployee@@A) already defined in admin.obj
+EmployeePayrollSystem.obj : error LNK2005: "struct Attendance * attendanceRecords" (?attendanceRecords@@3PAUAttendance@@A) already defined in admin.obj
+EmployeePayrollSystem.obj : error LNK2005: "struct AdminAccount * admins" (?admins@@3PAUAdminAccount@@A) already defined in admin.obj
+C:\Users\GamerHH\Source\Repos\EmployeePayrollSystem__\x64\Debug\EmployeePayrollManagementSystem.exe : fatal error LNK1169: one or more multiply defined symbols found

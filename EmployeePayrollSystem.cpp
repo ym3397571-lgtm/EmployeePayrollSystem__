@@ -11,7 +11,7 @@ using namespace std;
 
 int main() {
     cout << "Welcome to Employee Payroll Management System" << endl;
-    cout << "HI" << endl;
+    cout << "HI git test" << endl;
 
     // === main menu ===
     // 1. Admin Login

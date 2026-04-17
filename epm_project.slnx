@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="epm_project.vcxproj" Id="15d2282e-31ab-42b1-86cd-cfa1e41519bf" />
+</Solution>

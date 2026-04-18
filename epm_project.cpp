@@ -4,10 +4,10 @@ using namespace std;
 // =======================
 // Headers
 // =======================
-#include "Employee.h"
-#include "Admin.h"
+#include "employee.h"
+#include "admin.h"
 #include "data.h"
-#include "Storage.h"
+#include "storage.h"
 
 // =======================
 // Function Declarations
@@ -164,9 +164,6 @@ void addEmployee() {
     cout << "[Stub] addEmployee\n";
 } // mostafa2
 
-void removeEmployee() {
-    cout << "[Stub] removeEmployee\n";
-}//  Abdelrahman
 void updateEmployee() {
     cout << "[Stub] updateEmployee\n";
 }// mostafa2 
@@ -179,3 +176,22 @@ void calculateSalary() {
 void recordAttendance() {
     cout << "[Stub] recordAttendance\n";
 }// Abdelrahman
+
+void deleteEmployee() {
+    cout << "[Stub] deleteEmployee\n";
+}//  Abdelrahman
+
+void removeEmployee() {
+    cout << "[Stub] removeEmployee\n";
+}
+
+void resetEmployeePassword(int employeeID) {
+    cout << "[Stub] resetEmployeePassword\n";
+}
+
+void requestLeave() {
+    cout << "[Stub] requestLeave\n";
+}
+
+
+

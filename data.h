@@ -9,8 +9,9 @@ using namespace std;
 // =======================
 
 struct Employee {
-    int employeeID ;         // معرف الموظف
+    long long employeeID ;         // معرف الموظف
     string name  ;            // الاسم
+    string username;
     int age  ;                // العمر
     string phone ;           // رقم الهاتف
     string role ;            // الوظيفة
@@ -19,18 +20,22 @@ struct Employee {
     double overtime  ;        // العمل الإضافي
     double tax  ;             // الضريبة
     double netSalary  ;       // صافي الراتب
-    double TotalHoursWorked ; // إجمالي ساعات العمل
-    string password ;        // كلمة السر          // true = يعمل، false = في إجازة
+    string password ;        // كلمة السر
+    double TotalHoursWorked = 0;
+    double WorkHoursPerMonth = 0;
+    bool isActive = true;          // true = يعمل، false = في إجازة
 };
 
 struct Attendance {
-    int employeeID  ;         // ID الموظف
-    int daysPresent  ;        // عدد أيام الحضور
-    int daysAbsent ;         // عدد أيام الغياب
+    long long employeeID = 0 ;         // ID الموظف
+    string month  ;           // الشهر
+    int daysPresent = 0 ;        // عدد أيام الحضور
+    int daysAbsent = 0 ;         // عدد أيام الغياب
 };
 
 struct AdminAccount {
-    int adminID  ;            // معرف الأدمن
+    long long adminID  ;            // معرف الأدمن
+    string username;
     string name ;            // اسم المستخدم
     string password ;        // كلمة السر
 };
@@ -42,7 +47,7 @@ struct AdminAccount {
 const int MAX_EMPLOYEES = 100;
 const int MAX_ATTENDANCE = 200;
 const int MAX_ADMINS = 2;
-const double TaxRate = 0.14, WorkHoursPerDay = 8, WorkHoursPerMonth = 160, BasicSalary = 8000;
+const double TaxRate = 0.14;
 
 // =======================
 // Arrays

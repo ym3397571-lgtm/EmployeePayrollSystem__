@@ -8,7 +8,6 @@ using namespace std;
 #include "admin.h"
 #include "data.h"
 #include "storage.h"
-#include "fstream"
 
 // =======================
 // Function Declarations
@@ -16,17 +15,6 @@ using namespace std;
 void showMainMenu();
 void handleAdmin();
 void handleEmployee();
-
-// =======================
-// Global Variables Definition
-// =======================
-Employee employees[MAX_EMPLOYEES];
-Attendance attendanceRecords[MAX_ATTENDANCE];
-AdminAccount admins[MAX_ADMINS];
-
-int employeeCount = 0;
-int attendanceCount = 0;
-int adminCount = 0;
 
 // =======================
 // MAIN
@@ -84,9 +72,7 @@ void showMainMenu() {
 
  
 void handleAdmin() {
-    string username = "Admin1";
-    string password = "Password1";
-    if (adminLogin(username, password)) {
+    if (adminLogin()) {
         cout << "Admin logged in successfully.\n";
 
         // TODO:  Menu
@@ -95,7 +81,7 @@ void handleAdmin() {
     else {
         cout << "Invalid admin credentials.\n";
     }
-}  //  محمود
+}  //  محمود 
 
 
 void handleEmployee()    { 
@@ -116,19 +102,10 @@ void handleEmployee()    {
 // LOGIN STUBS
 // =======================
 
-bool adminLogin(string username, string password) {
-    string adminname;
-    string adminpass;
-    cout << "Enter Username: ";
-    getline(cin, adminname);
-    cout << "Enter Password: ";
-    getline(cin, adminpass);
-
-    if (adminname == username && adminpass == password) {
-        return true;
-    }
-    return false;
-} // محمود
+bool adminLogin() {
+    cout << "[Stub] adminLogin\n";
+    return true;
+} // محمود 
 
 bool employeeLogin() {
     cout << "[Stub] employeeLogin\n";
@@ -140,76 +117,27 @@ bool employeeLogin() {
 // =======================
 
 void loadEmployees() {
-    ifstream in("employees.txt");
-    if (!in) {
-        cout << "no file found" << endl;
-        return;
-    }
-    employeeCount = 0;
-    while (employeeCount < MAX_EMPLOYEES && in >> employees[employeeCount].employeeID >> employees[employeeCount].name
-        >> employees[employeeCount].basicSalary >> employees[employeeCount].age >> employees[employeeCount].phone
-        >> employees[employeeCount].role >> employees[employeeCount].bonus
-        >> employees[employeeCount].overtime >> employees[employeeCount].tax
-        >> employees[employeeCount].netSalary >> employees[employeeCount].TotalHoursWorked
-        >> employees[employeeCount].password) {
-        employeeCount++;
-    }
-    in.close();
+    cout << "[Stub] loadEmployees\n";
 }
 
 void saveEmployees() {
-    ofstream out("employees.txt");
-    for (int i = 0; i < employeeCount; i++) {
-        out << employees[i].employeeID << " " << employees[i].name << " "
-            << employees[i].basicSalary << " " << employees[i].age << employees[i].phone << " "
-            << employees[i].role << " " << employees[i].bonus << " "
-            << employees[i].overtime << " " << employees[i].tax << " "
-            << employees[i].netSalary << " " << employees[i].TotalHoursWorked << " "
-            << employees[i].password << endl;
-    }
-    out.close();
+    cout << "[Stub] saveEmployees\n";
 }
 
 void loadAdmins() {
-    ifstream in("admins.txt");
-    if (!in) {
-        cout << "no file found" << endl;
-        return;
-    }
-    adminCount = 0;
-    while (adminCount < MAX_ADMINS && in >> admins[adminCount].adminID >> admins[adminCount].name >> admins[adminCount].password) {
-        adminCount++;
-    }
-    in.close();
+    cout << "[Stub] loadAdmins\n";
 }
 
 void saveAdmins() {
-    ofstream out("admins.txt");
-    for (int i = 0; i < adminCount; i++) {
-        out << admins[i].adminID << " " << admins[i].name << " " << admins[i].password << endl;
-    }
-    out.close();
+    cout << "[Stub] saveAdmins\n";
 }
 
 void loadAttendance() {
-    ifstream in("attendance.txt");
-    if (!in) {
-        cout << "no file found" << endl;
-        return;
-    }
-    attendanceCount = 0;
-    while (attendanceCount < 200 && in >> attendanceRecords[attendanceCount].employeeID >> attendanceRecords[attendanceCount].daysPresent >> attendanceRecords[attendanceCount].daysAbsent) {
-        attendanceCount++;
-    }
-    in.close();
+    cout << "[Stub] loadAttendance\n";
 }
 
 void saveAttendance() {
-    ofstream out("attendance.txt");
-    for (int i = 0; i < attendanceCount; i++) {
-        out << attendanceRecords[i].employeeID << " " << attendanceRecords[i].daysPresent << " " << attendanceRecords[i].daysAbsent << endl;
-    }
-    out.close();
+    cout << "[Stub] saveAttendance\n";
 }
 
 // employee functions 
@@ -241,13 +169,14 @@ void updateEmployee() {
 }// mostafa2 
 
 
-void calculateSalary(int employeeID)
+void calculateSalary(long long employeeID)
 {
-    employees[employeeID].overtime = employees[employeeID].TotalHoursWorked - WorkHoursPerMonth;
-    employees[employeeID].bonus = (employees[employeeID].basicSalary / WorkHoursPerMonth) * employees[employeeID].overtime;
+    employees[employeeID].overtime = employees[employeeID].TotalHoursWorked - employees[employeeID].WorkHoursPerMonth;
+    employees[employeeID].bonus = (employees[employeeID].basicSalary / employees[employeeID].WorkHoursPerMonth) * employees[employeeID].overtime;
     employees[employeeID].tax = (employees[employeeID].basicSalary * TaxRate);
     employees[employeeID].netSalary = (employees[employeeID].basicSalary + employees[employeeID].bonus) - employees[employeeID].tax;
-}// eyad
+
+}// eyad 
 
 void recordAttendance() {
     cout << "[Stub] recordAttendance\n";

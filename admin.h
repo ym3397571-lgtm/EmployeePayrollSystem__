@@ -9,12 +9,12 @@ using namespace std;
 // Admin Panel Functions
 // =======================
 
-bool adminLogin(string username, string password);    // تسجيل دخول الأدمن
+bool adminLogin();                  // تسجيل دخول الأدمن
 void addEmployee();                 // إضافة موظف جديد
 void updateEmployee();              // تعديل بيانات موظف موجود
 void deleteEmployee();              // حذف موظف
 void recordAttendance();            // تسجيل حضور الموظفين
-void calculateSalary(int employeeID);             // حساب صافي الراتب لكل موظف
+void calculateSalary(long long employeeID);             // حساب صافي الراتب لكل موظف
 
 // =======================
 // Optional / Additional Admin Functions
@@ -24,6 +24,6 @@ int findEmployeeByName(string name);      // البحث عن موظف بالاس
 void sortEmployeesBySalary();             // ترتيب الموظفين حسب الراتب
 void sortEmployeesByName();               // ترتيب الموظفين حسب الاسم
 void showDepartmentSummary();             // عرض تقرير قسم معين
-void resetEmployeePassword(int employeeID); // إعادة تعيين كلمة سر الموظف
+void resetEmployeePassword(long long employeeID); // إعادة تعيين كلمة سر الموظف
 
 #endif

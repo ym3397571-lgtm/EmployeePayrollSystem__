@@ -72,7 +72,9 @@ void showMainMenu() {
 
  
 void handleAdmin() {
-    if (adminLogin()) {
+    string username = "Admin1";
+    string password = "Password1";
+    if (adminLogin(username, password)) {
         cout << "Admin logged in successfully.\n";
 
         // TODO:  Menu
@@ -81,7 +83,7 @@ void handleAdmin() {
     else {
         cout << "Invalid admin credentials.\n";
     }
-}  //  محمود 
+}  //  محمود
 
 
 void handleEmployee()    { 
@@ -102,10 +104,19 @@ void handleEmployee()    {
 // LOGIN STUBS
 // =======================
 
-bool adminLogin() {
-    cout << "[Stub] adminLogin\n";
-    return true;
-} // محمود 
+bool adminLogin(string username, string password) {
+    string adminname;
+    string adminpass;
+    cout << "Enter Username: ";
+    getline(cin, adminname);
+    cout << "Enter Password: ";
+    getline(cin, adminpass);
+
+    if (adminname == username && adminpass == password) {
+        return true;
+    }
+    return false;
+} // محمود
 
 bool employeeLogin() {
     cout << "[Stub] employeeLogin\n";

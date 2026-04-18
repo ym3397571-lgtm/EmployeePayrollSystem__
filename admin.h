@@ -9,7 +9,7 @@ using namespace std;
 // Admin Panel Functions
 // =======================
 
-bool adminLogin();                  // تسجيل دخول الأدمن
+bool adminLogin(string username, string password);    // تسجيل دخول الأدمن
 void addEmployee();                 // إضافة موظف جديد
 void updateEmployee();              // تعديل بيانات موظف موجود
 void deleteEmployee();              // حذف موظف

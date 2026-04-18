@@ -19,6 +19,7 @@ struct Employee {
     double overtime  ;        // العمل الإضافي
     double tax  ;             // الضريبة
     double netSalary  ;       // صافي الراتب
+    double TotalHoursWorked ; // إجمالي ساعات العمل
     string password ;        // كلمة السر          // true = يعمل، false = في إجازة
 };
 

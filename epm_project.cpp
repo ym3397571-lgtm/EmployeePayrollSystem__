@@ -182,12 +182,11 @@ void updateEmployee() {
 
 void calculateSalary(int employeeID)
 {
-    employees[employeeID].overtime = employees[employeeID].TotalHoursWorked - employees[employeeID].WorkHoursPerMonth;
-    employees[employeeID].bonus = (employees[employeeID].basicSalary / employees[employeeID].WorkHoursPerMonth) * employees[employeeID].overtime;
+    employees[employeeID].overtime = employees[employeeID].TotalHoursWorked - WorkHoursPerMonth;
+    employees[employeeID].bonus = (employees[employeeID].basicSalary / WorkHoursPerMonth) * employees[employeeID].overtime;
     employees[employeeID].tax = (employees[employeeID].basicSalary * TaxRate);
     employees[employeeID].netSalary = (employees[employeeID].basicSalary + employees[employeeID].bonus) - employees[employeeID].tax;
-
-}// eyad 
+}// eyad
 
 void recordAttendance() {
     cout << "[Stub] recordAttendance\n";

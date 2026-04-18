@@ -19,8 +19,7 @@ struct Employee {
     double overtime  ;        // العمل الإضافي
     double tax  ;             // الضريبة
     double netSalary  ;       // صافي الراتب
-    string password ;        // كلمة السر
-    bool isActive = true;          // true = يعمل، false = في إجازة
+    string password ;        // كلمة السر          // true = يعمل، false = في إجازة
 };
 
 struct Attendance {

@@ -19,7 +19,14 @@ struct Employee {
     double overtime  ;        // العمل الإضافي
     double tax  ;             // الضريبة
     double netSalary  ;       // صافي الراتب
+<<<<<<< HEAD
     string password ;        // كلمة السر          // true = يعمل، false = في إجازة
+=======
+    string password ;        // كلمة السر
+    double TotalHoursWorked = 0;
+    double WorkHoursPerMonth = 0;
+    bool isActive = true;          // true = يعمل، false = في إجازة
+>>>>>>> b1af384e172aae036dab47ab2db4cc9aef63bfb3
 };
 
 struct Attendance {
@@ -42,7 +49,7 @@ struct AdminAccount {
 const int MAX_EMPLOYEES = 100;
 const int MAX_ATTENDANCE = 200;
 const int MAX_ADMINS = 2;
-const double TaxRate = 0.14, WorkHoursPerDay = 8, WorkHoursPerMonth = 160, BasicSalary = 8000;
+const double TaxRate = 0.14;
 
 // =======================
 // Arrays

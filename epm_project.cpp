@@ -29,7 +29,7 @@ AdminAccount admins[MAX_ADMINS];
 int employeeCount = 0;
 int attendanceCount = 0;
 int adminCount = 0;
-
+int currentEmployeeIndex = -1;
 // =======================
 // MAIN
 // =======================

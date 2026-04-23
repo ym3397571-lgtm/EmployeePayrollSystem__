@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <limits>
 using namespace std;
 
 // =======================
@@ -34,30 +35,18 @@ int adminCount = 0;
 // =======================
 int main() {
 
-	// Initialize default admin accounts if no admins loaded
-	if (adminCount == 0) {
-		admins[0].adminID = 2025170;
-		admins[0].name = "Admin1";
-		admins[0].password = "Password1";
-
-		admins[1].adminID = 2025171;
-		admins[1].name = "Admin2";
-		admins[1].password = "Password2";
-
-		adminCount = 2;
-	}
+	
 
 	// load data
 	loadEmployees();
 	loadAdmins();
 	loadAttendance();
-
 	int choice;
 
 	while (true) {
 		showMainMenu();
 		cin >> choice;
-		cin.ignore(); // Clear input buffer after reading choice
+		cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer after reading choice
 
 		switch (choice) {
 		case 1:
@@ -99,7 +88,7 @@ void showMainMenu() {
 
  
 void handleAdmin() {
-    if (adminLogin("", "")) {
+    if (adminLogin()) {
         cout << "\n========================================\n";
         cout << "Login Successful\n";
         cout << "========================================\n";
@@ -114,7 +103,7 @@ void handleAdmin() {
             cout << "6. Logout\n";
             cout << "Choose: ";
             cin >> choice_admin;
-            cin.ignore(); // Clear input buffer after reading choice
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer after reading choice
             switch (choice_admin) {
                 case 1:
                     addEmployee();
@@ -164,7 +153,7 @@ void handleEmployee()    {
             cout << "5. Logout\n";
             cout << "Choose: ";
             cin >> choice_employe;
-            cin.ignore(); // Clear input buffer after reading choice
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer after reading choice
             switch (choice_employe) {
                 case 1:
                     viewPersonalInfo();
@@ -206,7 +195,7 @@ bool adminLogin(string username, string password) {
     getline(cin, adminpass);
 
     for (int i = 0; i < adminCount; i++) {
-        if (admins[i].name == adminname && admins[i].password == adminpass) {
+        if (admins[i].username == adminname && admins[i].password == adminpass) {
             return true;
         }
     }
@@ -226,10 +215,11 @@ void loadEmployees() {
     ifstream in("employees.txt");
 
     if (!in) {
-        cout << "no file found\n";
+        cout << "ERROR: employees.txt not found in execution folder\n";
         return;
     }
 
+    cout << "File opened successfully\n";
     employeeCount = 0;
 
     while (employeeCount < MAX_EMPLOYEES) {
@@ -237,7 +227,7 @@ void loadEmployees() {
         Employee& e = employees[employeeCount];
 
         if (!(in >> e.employeeID)) break;
-        in.ignore(); // ignore |
+        in.ignore(); 
 
         getline(in, e.name, '|');
 
@@ -278,11 +268,11 @@ void loadEmployees() {
 void saveEmployees() {
     ofstream out("employees.txt");
     for (int i = 0; i < employeeCount; i++) {
-        out << employees[i].employeeID << " " << employees[i].name << " "
-            << employees[i].basicSalary << " " << employees[i].age<< " " << employees[i].phone << " "
-            << employees[i].role << " " << employees[i].bonus << " "
-            << employees[i].overtime << " " << employees[i].tax << " "
-            << employees[i].netSalary << " " << employees[i].TotalHoursWorked << " "
+        out << employees[i].employeeID << "|" << employees[i].name << "|"
+            << employees[i].basicSalary << "|" << employees[i].age<< "|" << employees[i].phone << "|"
+            << employees[i].role << "|" << employees[i].bonus << "|"
+            << employees[i].overtime << "|" << employees[i].tax << "|"
+            << employees[i].netSalary << "|" << employees[i].TotalHoursWorked << "|"
             << employees[i].password << endl;
     }
     out.close();
@@ -291,11 +281,18 @@ void saveEmployees() {
 void loadAdmins() {
     ifstream in("admins.txt");
     if (!in) {
-        cout << "no file found" << endl;
+        cout << "no file found\n";
         return;
     }
     adminCount = 0;
-    while (adminCount < MAX_ADMINS && in >> admins[adminCount].adminID >> admins[adminCount].name >> admins[adminCount].password) {
+
+	while (adminCount < MAX_ADMINS) {
+
+		AdminAccount& a = admins[adminCount];
+		if (!(in >> a.adminID)) break;
+        in.ignore(); 
+        getline(in, a.username, '|');
+        getline(in, a.password);
         adminCount++;
     }
     in.close();
@@ -304,7 +301,7 @@ void loadAdmins() {
 void saveAdmins() {
     ofstream out("admins.txt");
     for (int i = 0; i < adminCount; i++) {
-        out << admins[i].adminID << " " << admins[i].name << " " << admins[i].password << endl;
+        out << admins[i].adminID << "|" << admins[i].username << "|" << admins[i].password << endl;
     }
     out.close();
 }
@@ -330,7 +327,7 @@ void saveAttendance() {
     out.close();
 }
 
-// employee functions 
+//  functions 
 
 bool employeeExists(long long empId) {
     for (int i = 0; i < employeeCount; i++) {
@@ -357,7 +354,6 @@ void viewPersonalInfo() {
             cout << "Age: " << employees[i].age << "\n";
             cout << "Phone: " << employees[i].phone << "\n";
             cout << "Role: " << employees[i].role << "\n";
-            cout << "Password: " << employees[i].password << "\n";
             cout << "========================================\n";
             return;
         }
@@ -423,8 +419,6 @@ void viewDepartmentSalarySummary() {
     cout << "[Stub] viewDepartmentSalarySummary\n";
 }// mostafa elhadidy
 
-
-
 void addEmployee() {
     cout << "[Stub] addEmployee\n";
 } // mostafa2
@@ -432,7 +426,6 @@ void addEmployee() {
 void updateEmployee() {
     cout << "[Stub] updateEmployee\n";
 }// mostafa2 
-
 
 void calculateSalary(long long employeeID)
 {
@@ -459,18 +452,6 @@ void recordAttendance() {
 void deleteEmployee() {
     cout << "[Stub] deleteEmployee\n";
 }//  Abdelrahman
-
-static void removeEmployee() {
-    cout << "[Stub] removeEmployee\n";
-}
-
-void resetEmployeePassword(int employeeID) {
-    cout << "[Stub] resetEmployeePassword\n";
-}
-
-void requestLeave() {
-    cout << "[Stub] requestLeave\n";
-}
 
 
 

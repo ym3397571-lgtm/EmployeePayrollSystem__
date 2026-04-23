@@ -36,7 +36,6 @@ struct Attendance {
 struct AdminAccount {
     long long adminID  ;            // معرف الأدمن
     string username;
-    string name ;            // اسم المستخدم
     string password ;        // كلمة السر
 };
 

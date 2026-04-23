@@ -33,4 +33,12 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="admins.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="employees.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

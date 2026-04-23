@@ -313,7 +313,15 @@ void loadAttendance() {
         return;
     }
     attendanceCount = 0;
-    while (attendanceCount < 200 && in >> attendanceRecords[attendanceCount].employeeID >> attendanceRecords[attendanceCount].daysPresent >> attendanceRecords[attendanceCount].daysAbsent) {
+    while (attendanceCount < MAX_ATTENDANCE) {
+        Attendance& a = attendanceRecords[attendanceCount];
+        if (!(in >> a.employeeID)) break;
+        in.ignore();
+        getline(in, a.month, '|');
+        in >> a.daysPresent;
+        in.ignore();
+        in >> a.daysAbsent;
+        in.ignore();
         attendanceCount++;
     }
     in.close();
@@ -322,7 +330,8 @@ void loadAttendance() {
 void saveAttendance() {
     ofstream out("attendance.txt");
     for (int i = 0; i < attendanceCount; i++) {
-        out << attendanceRecords[i].employeeID << " " << attendanceRecords[i].daysPresent << " " << attendanceRecords[i].daysAbsent << endl;
+        out << attendanceRecords[i].employeeID << "|" << attendanceRecords[i].month << "|"
+            << attendanceRecords[i].daysPresent << "|" << attendanceRecords[i].daysAbsent << endl;
     }
     out.close();
 }
@@ -402,6 +411,7 @@ void viewAttendance() {
     bool found = false;
     for (int i = 0; i < attendanceCount; i++) {
         if (attendanceRecords[i].employeeID == empId) {
+            cout << "Month: " << attendanceRecords[i].month << "\n";
             cout << "Days Present: " << attendanceRecords[i].daysPresent << "\n";
             cout << "Days Absent: " << attendanceRecords[i].daysAbsent << "\n";
             found = true;
@@ -413,11 +423,9 @@ void viewAttendance() {
         cout << "No attendance records found for this employee\n";
     }
     cout << "========================================\n";
-}// mostafa elhadidy
+}
 
-void viewDepartmentSalarySummary() {
-    cout << "[Stub] viewDepartmentSalarySummary\n";
-}// mostafa elhadidy
+
 
 void addEmployee() {
     cout << "[Stub] addEmployee\n";
@@ -446,12 +454,75 @@ void calculateSalary(long long employeeID)
 }// eyad 
 
 void recordAttendance() {
-    cout << "[Stub] recordAttendance\n";
-}// Abdelrahman
+    long long id;
+    bool found = false;
+    cout << "\n========================================\n";
+    cout << "           Record Attendance\n";
+    cout << "========================================\n";
+    cout << "Enter Employee ID: ";
+    cin >> id;
+
+    for (int i = 0; i < employeeCount; i++) {
+        if (employees[i].employeeID == id) {
+            found = true;
+            break;
+        }
+    }
+
+    if (found) {
+        if (attendanceCount < MAX_ATTENDANCE) {
+            attendanceRecords[attendanceCount].employeeID = id;
+            cout << "Enter Month: ";
+            cin.ignore();
+            getline(cin, attendanceRecords[attendanceCount].month);
+            cout << "Enter Days Present: ";
+            cin >> attendanceRecords[attendanceCount].daysPresent;
+            cout << "Enter Days Absent: ";
+            cin >> attendanceRecords[attendanceCount].daysAbsent;
+            attendanceCount++;
+            cout << "Attendance recorded successfully.\n";
+            cout << "========================================\n";
+            saveAttendance();
+        }
+        else {
+            cout << "Error: Attendance records are full.\n";
+            cout << "========================================\n";
+        }
+    }
+    else {
+        cout << "Error: Employee ID " << id << " not found.\n";
+        cout << "========================================\n";
+    }
+}
 
 void deleteEmployee() {
-    cout << "[Stub] deleteEmployee\n";
-}//  Abdelrahman
+    long long id;
+    bool found = false;
+    cout << "\n========================================\n";
+    cout << "           Delete Employee\n";
+    cout << "========================================\n";
+    cout << "Enter Employee ID: ";
+    cin >> id;
+
+    for (int j = 0; j < employeeCount; j++) {
+        if (employees[j].employeeID == id) {
+            found = true;
+            for (int k = j; k < employeeCount - 1; k++) {
+                employees[k] = employees[k + 1];
+            }
+            cout << "Employee with ID " << id << " deleted successfully.\n";
+            cout << "========================================\n";
+            employeeCount--;
+            saveEmployees();
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "Error: Employee ID " << id << " not found.\n";
+        cout << "========================================\n";
+    }
+}
 
 
 

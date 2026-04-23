@@ -16,3 +16,4 @@ void deleteEmployee();              // حذف موظف
 void recordAttendance();            // تسجيل حضور الموظفين
 void calculateSalary(long long employeeID);             // حساب صافي الراتب لكل موظف
 
+#endif // ADMIN_H

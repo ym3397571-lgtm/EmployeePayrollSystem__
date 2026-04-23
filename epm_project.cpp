@@ -224,21 +224,56 @@ bool employeeLogin() {
 
 void loadEmployees() {
     ifstream in("employees.txt");
+
     if (!in) {
-        cout << "no file found" << endl;
+        cout << "no file found\n";
         return;
     }
+
     employeeCount = 0;
-    while (employeeCount < MAX_EMPLOYEES && in >> employees[employeeCount].employeeID >> employees[employeeCount].name
-        >> employees[employeeCount].basicSalary >> employees[employeeCount].age >> employees[employeeCount].phone
-        >> employees[employeeCount].role >> employees[employeeCount].bonus
-        >> employees[employeeCount].overtime >> employees[employeeCount].tax
-        >> employees[employeeCount].netSalary >> employees[employeeCount].TotalHoursWorked
-        >> employees[employeeCount].password) {
+
+    while (employeeCount < MAX_EMPLOYEES) {
+
+        Employee& e = employees[employeeCount];
+
+        if (!(in >> e.employeeID)) break;
+        in.ignore(); // ignore |
+
+        getline(in, e.name, '|');
+
+        in >> e.basicSalary;
+        in.ignore();
+
+        in >> e.age;
+        in.ignore();
+
+        getline(in, e.phone, '|');
+
+        getline(in, e.role, '|');
+
+        in >> e.bonus;
+        in.ignore();
+
+        in >> e.overtime;
+        in.ignore();
+
+        in >> e.tax;
+        in.ignore();
+
+        in >> e.netSalary;
+        in.ignore();
+
+        in >> e.TotalHoursWorked;
+        in.ignore();
+
+        getline(in, e.password);
+
         employeeCount++;
     }
+
     in.close();
 }
+
 
 void saveEmployees() {
     ofstream out("employees.txt");
@@ -401,10 +436,19 @@ void updateEmployee() {
 
 void calculateSalary(long long employeeID)
 {
-    employees[employeeID].overtime = employees[employeeID].TotalHoursWorked - employees[employeeID].WorkHoursPerMonth;
-    employees[employeeID].bonus = (employees[employeeID].basicSalary / employees[employeeID].WorkHoursPerMonth) * employees[employeeID].overtime;
-    employees[employeeID].tax = (employees[employeeID].basicSalary * TaxRate);
-    employees[employeeID].netSalary = (employees[employeeID].basicSalary + employees[employeeID].bonus) - employees[employeeID].tax;
+    for (int i = 0; i < employeeCount; i++) {
+        if (employees[i].employeeID == employeeID) {
+
+            employees[i].overtime = employees[i].TotalHoursWorked - employees[i].WorkHoursPerMonth;
+            employees[i].bonus = (employees[i].basicSalary / employees[i].WorkHoursPerMonth) * employees[i].overtime;
+            employees[i].tax = (employees[i].basicSalary * TaxRate);
+            employees[i].netSalary = (employees[i].basicSalary + employees[i].bonus) - employees[i].tax;
+
+            return;
+        }
+    }
+
+    cout << "Employee not found!\n";
 
 }// eyad 
 

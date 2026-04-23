@@ -129,7 +129,7 @@ void handleAdmin() {
                     recordAttendance();
                     break;
                 case 5: {
-                    int  empId;
+                    long long  empId;
                     cout << "Enter Employee ID to calculate salary: ";
                     cin >> empId;
                     calculateSalary(empId);
@@ -244,7 +244,7 @@ void saveEmployees() {
     ofstream out("employees.txt");
     for (int i = 0; i < employeeCount; i++) {
         out << employees[i].employeeID << " " << employees[i].name << " "
-            << employees[i].basicSalary << " " << employees[i].age << employees[i].phone << " "
+            << employees[i].basicSalary << " " << employees[i].age<< " " << employees[i].phone << " "
             << employees[i].role << " " << employees[i].bonus << " "
             << employees[i].overtime << " " << employees[i].tax << " "
             << employees[i].netSalary << " " << employees[i].TotalHoursWorked << " "
@@ -297,7 +297,7 @@ void saveAttendance() {
 
 // employee functions 
 
-bool employeeExists(int empId) {
+bool employeeExists(long long empId) {
     for (int i = 0; i < employeeCount; i++) {
         if (employees[i].employeeID == empId) {
             return true;
@@ -307,7 +307,7 @@ bool employeeExists(int empId) {
 }
 
 void viewPersonalInfo() {
-    int empId;
+    long long empId;
     cout << "\n========================================\n";
     cout << "          View Personal Information\n";
     cout << "========================================\n";
@@ -332,7 +332,7 @@ void viewPersonalInfo() {
 } //  ahmed
 
 void viewSalary() {
-    int empId;
+    long long  empId;
     cout << "\n========================================\n";
     cout << "          View Salary Information\n";
     cout << "========================================\n";
@@ -358,7 +358,7 @@ void viewSalary() {
 } // mostafa elhadidy
 
 void viewAttendance() {
-    int empId;
+    long long empId;
     cout << "\n========================================\n";
     cout << "           Attendance Record\n";
     cout << "========================================\n";

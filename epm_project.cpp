@@ -103,25 +103,92 @@ void handleAdmin() {
         cout << "\n========================================\n";
         cout << "Login Successful\n";
         cout << "========================================\n";
-        cout << "Admin functions coming soon...\n";
-        cout << "========================================\n";
+		int choice_admin;
+        while (true) {
+            cout << "\n===== Admin Menu =====\n";
+            cout << "1. Add Employee\n";
+            cout << "2. Update Employee\n";
+            cout << "3. Delete Employee\n";
+            cout << "4. Record Attendance\n";
+            cout << "5. Calculate Salary\n";
+            cout << "6. Logout\n";
+            cout << "Choose: ";
+            cin >> choice_admin;
+            cin.ignore(); // Clear input buffer after reading choice
+            switch (choice_admin) {
+                case 1:
+                    addEmployee();
+                    break;
+                case 2:
+                    updateEmployee();
+                    break;
+                case 3:
+                    deleteEmployee();
+                    break;
+                case 4:
+                    recordAttendance();
+                    break;
+                case 5: {
+                    int  empId;
+                    cout << "Enter Employee ID to calculate salary: ";
+                    cin >> empId;
+                    calculateSalary(empId);
+                    break;
+                }
+                case 6:
+                    cout << "Logging out...\n";
+                    return;
+                default:
+                    cout << "Invalid choice!\n";
+			}
+        }
+     
+      
     }
     else {
         cout << "\nError: Invalid username or password\n";
     }
-}  //  محمود
+}  
 
 
 void handleEmployee()    { 
     if (employeeLogin()) {
         cout << "Employee logged in successfully.\n";
-
-       
-        cout << "Employee functions coming soon...\n";
+        int choice_employe;
+        while (true) {
+            cout << "\n===== Employee Menu =====\n";
+            cout << "1. View Personal Information\n";
+            cout << "2. View Salary Information\n";
+            cout << "3. View Attendance Record\n";
+            cout << "4. View Department Salary Summary\n";
+            cout << "5. Logout\n";
+            cout << "Choose: ";
+            cin >> choice_employe;
+            cin.ignore(); // Clear input buffer after reading choice
+            switch (choice_employe) {
+                case 1:
+                    viewPersonalInfo();
+                    break;
+                case 2:
+                    viewSalary();
+                    break;
+                case 3:
+                    viewAttendance();
+                    break;
+                case 4:
+                    viewDepartmentSalarySummary();
+                    break;
+                case 5:
+                    cout << "Logging out...\n";
+                    return;
+                default:
+                    cout << "Invalid choice!\n";
+            }
+		}
     }
     else {
         cout << "Invalid employee credentials.\n";
-	} // ahmed
+	}
 }
 
 

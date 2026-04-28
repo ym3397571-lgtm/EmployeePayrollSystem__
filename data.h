@@ -46,45 +46,20 @@ const int MAX_EMPLOYEES = 100;
 const int MAX_ATTENDANCE = 200;
 const int MAX_ADMINS = 2;
 const double TaxRate = 0.14;
-const double WorkHoursPerMonth = 160.0;
 
 // =======================
-// SystemData Struct
+// Arrays
 // =======================
 
-struct SystemData {
-    Employee employees[MAX_EMPLOYEES];
-    Attendance attendanceRecords[MAX_ATTENDANCE];
-    AdminAccount admins[MAX_ADMINS];
-
-    int employeeCount = 0;
-    int attendanceCount = 0;
-    int adminCount = 0;
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-    int currentEmployeeIndex = -1;
-    int currentAdminIndex = -1;
-};
-
-extern SystemData data;
+extern Employee employees[MAX_EMPLOYEES];
+extern Attendance attendanceRecords[MAX_ATTENDANCE];
+extern AdminAccount admins[MAX_ADMINS];
 
 // =======================
-// Roles
+// Counters
 // =======================
 
-const string ROLES[] = { "Manager", "Accountant", "Developer", "Designer", "HR" };
-
-
-#endif
-=======
-=======
->>>>>>> 7e4c3eb67fb5e4cc61b2e81f9d986e76578206a5
 extern int employeeCount;
 extern int attendanceCount;
 extern int adminCount;
 #endif
-<<<<<<< HEAD
->>>>>>> a876b1f48e9d64cf96044774c1a3b686c1006665
-=======
->>>>>>> 7e4c3eb67fb5e4cc61b2e81f9d986e76578206a5

@@ -187,7 +187,7 @@ bool adminLogin() {
     string adminname;
     string adminpass;
     cout << "Enter Username: ";
-    getline(cin, adminname);
+    getline(cin >> ws, adminname);
     cout << "Enter Password: ";
     getline(cin, adminpass);
 
@@ -204,12 +204,12 @@ bool employeeLogin()
     string Username;
     string Password;
 
-    cout << "Enter your username";
-    getline(cin, Username);
-    cout << "Enter your password:";
+    cout << "Enter your username: ";
+    getline(cin >> ws, Username);
+    cout << "Enter your password: ";
     getline(cin, Password);
 
-    for (int i = 0; i < MAX_EMPLOYEES; i++)
+    for (int i = 0; i < employeeCount; i++)
     {
         if (employees[i].username == Username && employees[i].password == Password)
         {
@@ -237,27 +237,30 @@ void loadEmployees() {
         return;
     }
 
-    cout << "File opened successfully\n";
     employeeCount = 0;
 
     while (employeeCount < MAX_EMPLOYEES) {
-
         Employee& e = employees[employeeCount];
 
+        // 1. Read ID
         if (!(in >> e.employeeID)) break;
-        in.ignore(); 
+        in.ignore(); // consume '|'
 
+        // 2 & 3. Read Name and Username
         getline(in, e.name, '|');
+        getline(in, e.username, '|');
 
+        // 4. Read Age
+        in >> e.age;
+        in.ignore(); // consume '|'
+
+        // 5 & 6. Read Phone and Role
+        getline(in, e.phone, '|');
+        getline(in, e.role, '|');
+
+        // 7 to 11. Read Salary & Financials
         in >> e.basicSalary;
         in.ignore();
-
-        in >> e.age;
-        in.ignore();
-
-        getline(in, e.phone, '|');
-
-        getline(in, e.role, '|');
 
         in >> e.bonus;
         in.ignore();
@@ -271,29 +274,52 @@ void loadEmployees() {
         in >> e.netSalary;
         in.ignore();
 
+        // 12. Read Password (until the next '|')
+        getline(in, e.password, '|');
+
+        // 13 & 14. Read Hours
         in >> e.TotalHoursWorked;
         in.ignore();
 
-        getline(in, e.password);
+        in >> e.WorkHoursPerMonth;
+
+        // Clear the leftover newline character before the next loop
+        in.ignore(numeric_limits<streamsize>::max(), '\n');
 
         employeeCount++;
     }
 
     in.close();
+    cout << "Loaded " << employeeCount << " employees successfully.\n";
 }
 
 
 void saveEmployees() {
     ofstream out("employees.txt");
+
+    if (!out.is_open()) {
+        cout << "Error: Could not open employees.txt for writing!" << endl;
+        return;
+    }
+
     for (int i = 0; i < employeeCount; i++) {
-        out << employees[i].employeeID << "|" << employees[i].name << "|"
-            << employees[i].basicSalary << "|" << employees[i].age<< "|" << employees[i].phone << "|"
-            << employees[i].role << "|" << employees[i].bonus << "|"
-            << employees[i].overtime << "|" << employees[i].tax << "|"
-            << employees[i].netSalary << "|" << employees[i].TotalHoursWorked << "|"
-            << employees[i].password << endl;
+        out << employees[i].employeeID << "|"
+            << employees[i].name << "|"
+            << employees[i].username << "|"
+            << employees[i].age << "|"
+            << employees[i].phone << "|"
+            << employees[i].role << "|"
+            << employees[i].basicSalary << "|"
+            << employees[i].bonus << "|"
+            << employees[i].overtime << "|"
+            << employees[i].tax << "|"
+            << employees[i].netSalary << "|"
+            << employees[i].password << "|"
+            << employees[i].TotalHoursWorked << "|"
+            << employees[i].WorkHoursPerMonth << endl; // Added missing variable
     }
     out.close();
+    cout << "Successfully saved " << employeeCount << " employees to file." << endl;
 }
 
 void loadAdmins() {

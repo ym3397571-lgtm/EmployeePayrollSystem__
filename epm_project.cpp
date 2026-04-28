@@ -158,6 +158,7 @@ void handleEmployee()    {
                     viewPersonalInfo(currentEmployeeIndex);
                     break;
                 case 2:
+					calculateSalary(employees[currentEmployeeIndex].employeeID); // Ensure salary is calculated before viewing
                     viewSalary(currentEmployeeIndex);
                     break;
                 case 3:
@@ -528,15 +529,46 @@ void updateEmployee() {
 
 void calculateSalary(long long empId)
 {
-    employees[empId].overtime = employees[empId].TotalHoursWorked - employees[empId].WorkHoursPerMonth;
+    int index = -1;
 
-    employees[empId].bonus = (employees[empId].basicSalary / employees[empId].WorkHoursPerMonth) * employees[empId].overtime;
+    // 1. Search for the employee's actual position (index) in the array
+    for (int i = 0; i < employeeCount; i++) {
+        if (employees[i].employeeID == empId) {
+            index = i;
+            break;
+        }
+    }
 
-    employees[empId].tax = (employees[empId].basicSalary * TaxRate);
+    // 2. If the loop finishes and index is still -1, the ID doesn't exist
+    if (index == -1) {
+        cout << "Error: Employee with ID " << empId << " not found.\n";
+        return;
+    }
 
-    employees[empId].netSalary = (employees[empId].basicSalary + employees[empId].bonus) - employees[empId].tax;
+    // 3. Safety Check: Prevent Division by Zero crash
+    if (employees[index].WorkHoursPerMonth <= 0) {
+        cout << "Error: WorkHoursPerMonth must be greater than 0 to calculate salary.\n";
+        return;
+    }
 
-}// eyad 
+    // 4. Calculate everything using the correct 'index'
+    employees[index].overtime = employees[index].TotalHoursWorked - employees[index].WorkHoursPerMonth;
+
+    // Optional: Prevent negative overtime if they worked less than the required hours
+    if (employees[index].overtime < 0) {
+        employees[index].overtime = 0;
+    }
+
+    employees[index].bonus = (employees[index].basicSalary / employees[index].WorkHoursPerMonth) * employees[index].overtime;
+
+    // Assuming TaxRate is a global variable defined in one of your headers (like data.h)
+    employees[index].tax = (employees[index].basicSalary * TaxRate);
+
+    employees[index].netSalary = (employees[index].basicSalary + employees[index].bonus) - employees[index].tax;
+
+    cout << "Salary calculated successfully for Employee ID " << empId << ".\n";
+}
+// eyad 
 
 void recordAttendance() {
     long long id;

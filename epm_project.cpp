@@ -96,7 +96,7 @@ void showMainMenu() {
 void handleAdmin() {
     if (adminLogin()) {
         cout << "\n========================================\n";
-        cout << "Login Successful\n";
+        cout << "           Login Successful\n";
         cout << "========================================\n";
         int choice_admin;
         long long  empId;
@@ -109,7 +109,7 @@ void handleAdmin() {
             cout << "5. Calculate Salary\n";
             cout << "6. Logout\n";
             cout << "Choose: ";
-			choice_admin = getValidInt();
+            choice_admin = getValidInt();
             switch (choice_admin) {
             case 1:
                 addEmployee();
@@ -174,7 +174,7 @@ void handleEmployee() {
         cout << "3. View Attendance Record\n";
         cout << "4. Logout\n";
         cout << "Choose: ";
-		choice = getValidInt();
+        choice = getValidInt();
 
         switch (choice) {
         case 1:
@@ -468,62 +468,45 @@ void viewAttendance() {
 void addEmployee() {
 
     cout << "\n--- Add New Employee ---\n";
-
-    if (employeeCount >= 100) {
-
+    // Check if employee list is full
+    if (employeeCount >= MAX_EMPLOYEES) {
         cout << "Employee list is full!\n";
-
         return;
-
     }
-
+    // Create a new employee object and get details from user
     Employee e;
 
     cout << "Enter ID: ";
-
-    e.employeeID = getValidId();
+    cin >> e.employeeID;
 
     // Check duplicate ID
-
     for (int i = 0; i < employeeCount; i++) {
         if (employees[i].employeeID == e.employeeID) {
-
             cout << "ID already exists!\n";
-
             return;
-
         }
 
     }
-
+    cout << "User Name: ";
+    cin >> e.username;
     cout << "Enter Name: ";
     cin >> e.name;
-
-    cout << "Enter Username: ";
-    cin >> e.username;
-
-    cout << "Enter Password: ";
-    cin >> e.password;
-
-    cout << "Enter Age: ";
-    e.age = getValidInt();
-
-    cout << "Enter Phone: ";
+    cout << "Phone: ";
     cin >> e.phone;
-
-    cout << "Enter Role: ";
-    cin >> e.role;
-
+    cout << "Role: ";
+    cin >> e.role;  
+    cout << "Age: ";
+	cin >> e.age;
+    cout << "Enter New Password: ";
+	cin >> e.password;
     cout << "Enter Salary: ";
-    e.basicSalary = getValidInt();
+    cin >> e.basicSalary;
 
     employees[employeeCount] = e;
-
     employeeCount++;
 
     cout << "Employee added successfully!\n";
-
-} // mostafa2
+}// mostafa2
 
 void updateEmployee() {
 
@@ -535,7 +518,7 @@ void updateEmployee() {
 
     id = getValidId();
 
-    for (int i = 0; i < employeeCount ; i++) {
+    for (int i = 0; i < employeeCount; i++) {
 
         if (employees[i].employeeID == id) {
 
@@ -698,14 +681,14 @@ int getValidInt() {
 }
 
 long long  getValidId() {
-    long long id ;
+    long long id;
 
     while (true) {
-        cin >> id ;
+        cin >> id;
 
         if (!cin.fail()) {
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            return id ;
+            return id;
         }
 
         cin.clear();

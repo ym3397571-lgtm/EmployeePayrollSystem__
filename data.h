@@ -23,7 +23,6 @@ struct Employee {
     string password ;        // كلمة السر
     double TotalHoursWorked = 0;
     double WorkHoursPerMonth = 0;
-    bool isActive = true;          // true = يعمل، false = في إجازة
 };
 
 struct Attendance {
@@ -62,6 +61,7 @@ struct SystemData {
     int attendanceCount = 0;
     int adminCount = 0;
 
+<<<<<<< HEAD
     int currentEmployeeIndex = -1;
     int currentAdminIndex = -1;
 };
@@ -76,3 +76,9 @@ const string ROLES[] = { "Manager", "Accountant", "Developer", "Designer", "HR" 
 
 
 #endif
+=======
+extern int employeeCount;
+extern int attendanceCount;
+extern int adminCount;
+#endif
+>>>>>>> a876b1f48e9d64cf96044774c1a3b686c1006665

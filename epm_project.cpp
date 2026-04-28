@@ -101,38 +101,36 @@ void handleAdmin() {
             cout << "3. Delete Employee\n";
             cout << "4. Record Attendance\n";
             cout << "5. Calculate Salary\n";
-            cout << "6. Logout\n";
+            cout << "6. Change Employee\n";
+            cout << "7. Logout\n";
             cout << "Choose: ";
             cin >> choice_admin;
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer after reading choice
+			cout << "Enter Employee ID to make operation on his account: ";
+            cin >> empId;
+			cout << "========================================\n";
             switch (choice_admin) {
                 case 1:
-                    cout << "Enter Employee ID to add: ";
-                    cin >> empId;
                     addEmployee(empId);
                     break;
                 case 2:
-                    cout << "Enter Employee ID to update: ";
-                    cin >> empId;
                     updateEmployee(empId);
                     break;
                 case 3:
-                    cout << "Enter Employee ID to delete: ";
-                    cin >> empId;
                     deleteEmployee(empId);
                     break;
                 case 4:
-                    cout << "Enter Employee ID to record attendance: ";
-                    cin >> empId;
                     recordAttendance(empId);
                     break;
                 case 5: {
-                    cout << "Enter Employee ID to calculate salary: ";
-                    cin >> empId;
                     calculateSalary(empId);
                     break;
                 }
                 case 6:
+                    cout << "Enter Employee ID to make operation on his account: ";
+                    cin >> empId;
+                    return;
+                case 7:
                     cout << "Logging out...\n";
                     return;
                 default:

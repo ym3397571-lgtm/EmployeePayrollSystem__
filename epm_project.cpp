@@ -101,36 +101,30 @@ void handleAdmin() {
             cout << "3. Delete Employee\n";
             cout << "4. Record Attendance\n";
             cout << "5. Calculate Salary\n";
-            cout << "6. Change Employee\n";
-            cout << "7. Logout\n";
+            cout << "6. Logout\n";
             cout << "Choose: ";
             cin >> choice_admin;
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer after reading choice
-			cout << "Enter Employee ID to make operation on his account: ";
-            cin >> empId;
-			cout << "========================================\n";
             switch (choice_admin) {
                 case 1:
-                    addEmployee(empId);
+                    addEmployee();
                     break;
                 case 2:
-                    updateEmployee(empId);
+                    updateEmployee();
                     break;
                 case 3:
-                    deleteEmployee(empId);
+                    deleteEmployee();
                     break;
                 case 4:
-                    recordAttendance(empId);
+                    recordAttendance();
                     break;
                 case 5: {
+                    cout << "Enter Employee ID to calculate salary: ";
+                    cin >> empId;
                     calculateSalary(empId);
                     break;
                 }
                 case 6:
-                    cout << "Enter Employee ID to make operation on his account: ";
-                    cin >> empId;
-                    return;
-                case 7:
                     cout << "Logging out...\n";
                     return;
                 default:
@@ -421,7 +415,7 @@ void viewAttendance(int currentEmployeeIndex) {
 
 
 
-void addEmployee(long long empId) {
+void addEmployee() {
 
     cout << "\n--- Add New Employee ---\n";
 
@@ -441,8 +435,7 @@ void addEmployee(long long empId) {
 
     // Check duplicate ID
 
-    for (int i = 0; i < employeeCount; i++) {
-
+    for (int i = 0; i < MAX_EMPLOYEES; i++) {
         if (employees[i].employeeID == e.employeeID) {
 
             cout << "ID already exists!\n";
@@ -469,7 +462,7 @@ void addEmployee(long long empId) {
 
 } // mostafa2
 
-void updateEmployee(long long empId) {
+void updateEmployee() {
 
     int id;
 
@@ -479,19 +472,29 @@ void updateEmployee(long long empId) {
 
     cin >> id;
 
-    cout << "Current Name: " << employees[currentEmployeeIndex].name << endl;
+    for (int i = 0; i < MAX_EMPLOYEES; i++) {
 
-    cout << "Current Salary: " << employees[currentEmployeeIndex].basicSalary << endl;
+        if (employees[i].employeeID == id) {
 
-    cout << "Enter New Name: ";
+            cout << "Current Name: " << employees[i].name << endl;
 
-    cin >> employees[currentEmployeeIndex].name;
+            cout << "Current Salary: " << employees[i].basicSalary << endl;
 
-    cout << "Enter New Salary: ";
+            cout << "Enter New Name: ";
 
-    cin >> employees[currentEmployeeIndex].basicSalary;
+            cin >> employees[i].name;
 
-    cout << "Employee updated successfully!\n";
+            cout << "Enter New Salary: ";
+
+            cin >> employees[i].basicSalary;
+
+            cout << "Employee updated successfully!\n";
+
+            return;
+
+        }
+
+    }
 
     cout << "Employee not found!\n";
 
@@ -509,14 +512,17 @@ void calculateSalary(long long empId)
 
 }// eyad 
 
-void recordAttendance(long long empId) {
+void recordAttendance() {
+    long long id;
     bool found = false;
     cout << "\n========================================\n";
     cout << "           Record Attendance\n";
     cout << "========================================\n";
+    cout << "Enter Employee ID: ";
+    cin >> id;
 
     for (int i = 0; i < employeeCount; i++) {
-        if (employees[i].employeeID == empId) {
+        if (employees[i].employeeID == id) {
             found = true;
             break;
         }
@@ -524,7 +530,7 @@ void recordAttendance(long long empId) {
 
     if (found) {
         if (attendanceCount < MAX_ATTENDANCE) {
-            attendanceRecords[attendanceCount].employeeID = empId;
+            attendanceRecords[attendanceCount].employeeID = id;
             cout << "Enter Month: ";
             cin.ignore();
             getline(cin, attendanceRecords[attendanceCount].month);
@@ -543,26 +549,27 @@ void recordAttendance(long long empId) {
         }
     }
     else {
-        cout << "Error: Employee ID " << empId << " not found.\n";
+        cout << "Error: Employee ID " << id << " not found.\n";
         cout << "========================================\n";
     }
 }
 
-void deleteEmployee(long long empId) {
+void deleteEmployee() {
+    long long id;
     bool found = false;
     cout << "\n========================================\n";
     cout << "           Delete Employee\n";
     cout << "========================================\n";
     cout << "Enter Employee ID: ";
-    cin >> empId;
+    cin >> id;
 
     for (int j = 0; j < employeeCount; j++) {
-        if (employees[j].employeeID == empId) {
+        if (employees[j].employeeID == id) {
             found = true;
             for (int k = j; k < employeeCount - 1; k++) {
                 employees[k] = employees[k + 1];
             }
-            cout << "Employee with ID " << empId << " deleted successfully.\n";
+            cout << "Employee with ID " << id << " deleted successfully.\n";
             cout << "========================================\n";
             employeeCount--;
             saveEmployees();
@@ -571,7 +578,7 @@ void deleteEmployee(long long empId) {
     }
 
     if (!found) {
-        cout << "Error: Employee ID " << empId << " not found.\n";
+        cout << "Error: Employee ID " << id << " not found.\n";
         cout << "========================================\n";
     }
 }

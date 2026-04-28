@@ -23,7 +23,6 @@ struct Employee {
     string password ;        // كلمة السر
     double TotalHoursWorked = 0;
     double WorkHoursPerMonth = 0;
-    bool isActive = true;          // true = يعمل، false = في إجازة
 };
 
 struct Attendance {
@@ -63,12 +62,4 @@ extern AdminAccount admins[MAX_ADMINS];
 extern int employeeCount;
 extern int attendanceCount;
 extern int adminCount;
-
-// =======================
-// Roles
-// =======================
-
-const string ROLES[] = { "Manager", "Accountant", "Developer", "Designer", "HR" };
-
-
 #endif

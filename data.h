@@ -9,17 +9,17 @@ using namespace std;
 // =======================
 
 struct Employee {
-    long long employeeID ;         // معرف الموظف
+    long long employeeID = 0 ;         // معرف الموظف
     string name  ;            // الاسم
     string username;
-    int age  ;                // العمر
+    int age = 0 ;                // العمر
     string phone ;           // رقم الهاتف
     string role ;            // الوظيفة
-    double basicSalary ;     // الراتب الأساسي
-    double bonus  ;           // البونص
-    double overtime  ;        // العمل الإضافي
-    double tax  ;             // الضريبة
-    double netSalary  ;       // صافي الراتب
+    double basicSalary = 0 ;     // الراتب الأساسي
+    double bonus = 0  ;           // البونص
+    double overtime = 0  ;        // العمل الإضافي
+    double tax = 0  ;             // الضريبة
+    double netSalary = 0  ;       // صافي الراتب
     string password ;        // كلمة السر
     double TotalHoursWorked = 0;
     double WorkHoursPerMonth = 0;
@@ -33,8 +33,9 @@ struct Attendance {
 };
 
 struct AdminAccount {
-    long long adminID  ;            // معرف الأدمن
-    string username;
+    long long adminID = 0 ;            // معرف الأدمن
+    string name;
+    string username ;
     string password ;        // كلمة السر
 };
 

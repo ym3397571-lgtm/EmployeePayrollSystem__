@@ -155,14 +155,14 @@ void handleEmployee()    {
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer after reading choice
             switch (choice_employe) {
                 case 1:
-                    viewPersonalInfo(currentEmployeeIndex);
+                    viewPersonalInfo();
                     break;
                 case 2:
 					calculateSalary(employees[currentEmployeeIndex].employeeID); // Ensure salary is calculated before viewing
-                    viewSalary(currentEmployeeIndex);
+                    viewSalary();
                     break;
                 case 3:
-                    viewAttendance(currentEmployeeIndex);
+                    viewAttendance();
                     break;
                 case 4:
                     cout << "Logging out...\n";
@@ -383,7 +383,7 @@ void saveAttendance() {
 
 //  functions 
 
-void viewPersonalInfo(int currentEmployeeIndex)
+void viewPersonalInfo()
 {
 
     cout << "\n========================================\n";
@@ -398,7 +398,7 @@ void viewPersonalInfo(int currentEmployeeIndex)
     cout << "========================================\n";
 } //  ahmed
 
-void viewSalary(int currentEmployeeIndex) {
+void viewSalary() {
     cout << "\n========================================\n";
     cout << "          View Salary Information\n";
     cout << "========================================\n";
@@ -411,11 +411,9 @@ void viewSalary(int currentEmployeeIndex) {
             cout << "Tax: " << fixed << setprecision(2) << employees[currentEmployeeIndex].tax << "\n";
             cout << "Net Salary: " << fixed << setprecision(2) << employees[currentEmployeeIndex].netSalary << "\n";
             cout << "========================================\n";
-    cout << "\nError: No employee found with ID " << currentEmployeeIndex << "\n";
-    cout << "========================================\n";
 } // mostafa elhadidy
 
-void viewAttendance(int currentEmployeeIndex) {
+void viewAttendance() {
     cout << "\n========================================\n";
     cout << "           Attendance Record\n";
     cout << "========================================\n";

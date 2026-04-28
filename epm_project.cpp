@@ -159,7 +159,11 @@ void handleEmployee()    {
                     break;
                 case 2:
 					calculateSalary(employees[currentEmployeeIndex].employeeID); // Ensure salary is calculated before viewing
+<<<<<<< HEAD
                     viewSalary(currentEmployeeIndex);
+=======
+                    viewSalary();
+>>>>>>> 7e4c3eb67fb5e4cc61b2e81f9d986e76578206a5
                     break;
                 case 3:
                     viewAttendance(currentEmployeeIndex);
@@ -383,7 +387,11 @@ void saveAttendance() {
 
 //  functions 
 
+<<<<<<< HEAD
 void viewPersonalInfo(int currentEmployeeIndex)
+=======
+void viewPersonalInfo()
+>>>>>>> 7e4c3eb67fb5e4cc61b2e81f9d986e76578206a5
 {
 
     cout << "\n========================================\n";
@@ -398,7 +406,11 @@ void viewPersonalInfo(int currentEmployeeIndex)
     cout << "========================================\n";
 } //  ahmed
 
+<<<<<<< HEAD
 void viewSalary(int currentEmployeeIndex) {
+=======
+void viewSalary() {
+>>>>>>> 7e4c3eb67fb5e4cc61b2e81f9d986e76578206a5
     cout << "\n========================================\n";
     cout << "          View Salary Information\n";
     cout << "========================================\n";
@@ -411,11 +423,17 @@ void viewSalary(int currentEmployeeIndex) {
             cout << "Tax: " << fixed << setprecision(2) << employees[currentEmployeeIndex].tax << "\n";
             cout << "Net Salary: " << fixed << setprecision(2) << employees[currentEmployeeIndex].netSalary << "\n";
             cout << "========================================\n";
+<<<<<<< HEAD
     cout << "\nError: No employee found with ID " << currentEmployeeIndex << "\n";
     cout << "========================================\n";
 } // mostafa elhadidy
 
 void viewAttendance(int currentEmployeeIndex) {
+=======
+} // mostafa elhadidy
+
+void viewAttendance() {
+>>>>>>> 7e4c3eb67fb5e4cc61b2e81f9d986e76578206a5
     cout << "\n========================================\n";
     cout << "           Attendance Record\n";
     cout << "========================================\n";

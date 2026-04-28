@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -18,6 +19,8 @@ using namespace std;
 void showMainMenu();
 void handleAdmin();
 void handleEmployee();
+int getValidInt();
+long long getValidId();
 
 // =======================
 // Global Variables Definition
@@ -30,6 +33,10 @@ int employeeCount = 0;
 int attendanceCount = 0;
 int adminCount = 0;
 int currentEmployeeIndex = -1;
+int currentAdminIndex = -1; 
+
+bool isAdminLoggedIn = false;
+bool isEmployeeLoggedIn = false;
 // =======================
 // MAIN
 // =======================
@@ -44,10 +51,8 @@ int main() {
 	int choice;
 
 	while (true) {
-		showMainMenu();
-		cin >> choice;
-		cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer after reading choice
-
+        showMainMenu();
+        choice = getValidInt();
 		switch (choice) {
 		case 1:
 			handleAdmin();
@@ -95,16 +100,19 @@ void handleAdmin() {
 		int choice_admin;
         long long  empId;
         while (true) {
-            cout << "\n===== Admin Menu =====\n";
+            cout << "\n========================================\n";
+            cout << "            ADMIN DASHBOARD\n";
+            cout << "========================================\n";
             cout << "1. Add Employee\n";
             cout << "2. Update Employee\n";
             cout << "3. Delete Employee\n";
             cout << "4. Record Attendance\n";
             cout << "5. Calculate Salary\n";
             cout << "6. Logout\n";
-            cout << "Choose: ";
-            cin >> choice_admin;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer after reading choice
+            cout << "========================================\n";
+            cout << "Choose option: ";
+           
+            choice_admin = getValidInt();
             switch (choice_admin) {
                 case 1:
                     addEmployee();
@@ -120,13 +128,16 @@ void handleAdmin() {
                     break;
                 case 5: {
                     cout << "Enter Employee ID to calculate salary: ";
-                    cin >> empId;
+                    empId = getValidId();
                     calculateSalary(empId);
                     break;
                 }
-                case 6:
+                case 6: {
                     cout << "Logging out...\n";
+                    isAdminLoggedIn = false;
+                    currentAdminIndex = -1;
                     return;
+                }
                 default:
                     cout << "Invalid choice!\n";
 			}
@@ -139,7 +150,11 @@ void handleAdmin() {
     }
 }  
 
+void handleEmployee() {
+    int chance = 3;
+    bool loggedIn = false;
 
+<<<<<<< Updated upstream
 void handleEmployee()    { 
     if (employeeLogin()) {
         cout << "Employee logged in successfully.\n";
@@ -175,10 +190,61 @@ void handleEmployee()    {
                     cout << "Invalid choice!\n";
             }
 		}
+=======
+    while (chance > 0) {
+        if (employeeLogin()) {
+            loggedIn = true;
+            cout << "Employee logged in successfully.\n";
+            break;
+        }
+        else {
+            chance--;
+            cout << "Invalid credentials. Try again. (" << chance << " attempts left)\n";
+        }
     }
-    else {
-        cout << "Invalid employee credentials.\n";
-	}
+
+    if (!loggedIn) {
+        cout << "Too many failed attempts. Access denied.\n";
+        return;
+    }
+
+    int choice_employe;
+
+    while (true) {
+        cout << "\n========================================\n";
+        cout << "           EMPLOYEE DASHBOARD\n";
+        cout << "========================================\n";
+        cout << "1. View Personal Information\n";
+        cout << "2. View Salary Information\n";
+        cout << "3. View Attendance Record\n";
+        cout << "4. View Department Salary Summary\n";
+        cout << "5. Logout\n";
+        cout << "========================================\n";
+        cout << "Choose option: ";
+
+       
+        choice_employe = getValidInt();
+
+        switch (choice_employe) {
+        case 1:
+            viewPersonalInfo();
+            break;
+        case 2:
+            viewSalary();
+            break;
+        case 3:
+            viewAttendance();
+            break;
+        case 5:
+            cout << "Logging out...\n";
+            isEmployeeLoggedIn = false;
+            currentEmployeeIndex = -1;
+            return;
+        default:
+            cout << "Invalid choice!\n";
+        }
+>>>>>>> Stashed changes
+    }
 }
 
 
@@ -198,6 +264,8 @@ bool adminLogin() {
 
     for (int i = 0; i < adminCount; i++) {
         if (admins[i].username == adminname && admins[i].password == adminpass) {
+			currentAdminIndex = i;
+            isAdminLoggedIn = true; 
             return true;
         }
     }
@@ -219,6 +287,7 @@ bool employeeLogin()
         if (employees[i].username == Username && employees[i].password == Password)
         {
             currentEmployeeIndex = i;
+			isEmployeeLoggedIn = true;
             cout << "Login successful\n";
             return true;
 
@@ -387,12 +456,18 @@ void saveAttendance() {
 
 //  functions 
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 void viewPersonalInfo(int currentEmployeeIndex)
 =======
 void viewPersonalInfo()
 >>>>>>> 7e4c3eb67fb5e4cc61b2e81f9d986e76578206a5
+=======
+void viewPersonalInfo()
+>>>>>>> Stashed changes
 {
+
+
 
     cout << "\n========================================\n";
     cout << "           EMPLOYEE PROFILE             \n";
@@ -406,11 +481,15 @@ void viewPersonalInfo()
     cout << "========================================\n";
 } //  ahmed
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 void viewSalary(int currentEmployeeIndex) {
 =======
 void viewSalary() {
 >>>>>>> 7e4c3eb67fb5e4cc61b2e81f9d986e76578206a5
+=======
+void viewSalary() {
+>>>>>>> Stashed changes
     cout << "\n========================================\n";
     cout << "          View Salary Information\n";
     cout << "========================================\n";
@@ -423,6 +502,7 @@ void viewSalary() {
             cout << "Tax: " << fixed << setprecision(2) << employees[currentEmployeeIndex].tax << "\n";
             cout << "Net Salary: " << fixed << setprecision(2) << employees[currentEmployeeIndex].netSalary << "\n";
             cout << "========================================\n";
+<<<<<<< Updated upstream
 <<<<<<< HEAD
     cout << "\nError: No employee found with ID " << currentEmployeeIndex << "\n";
     cout << "========================================\n";
@@ -434,6 +514,12 @@ void viewAttendance(int currentEmployeeIndex) {
 
 void viewAttendance() {
 >>>>>>> 7e4c3eb67fb5e4cc61b2e81f9d986e76578206a5
+=======
+   
+} // mostafa elhadidy
+
+void viewAttendance() {
+>>>>>>> Stashed changes
     cout << "\n========================================\n";
     cout << "           Attendance Record\n";
     cout << "========================================\n";
@@ -461,6 +547,11 @@ void viewAttendance() {
 
 
 void addEmployee() {
+
+    if (!isAdminLoggedIn) {
+        cout << "Access denied! Admin login required.\n";
+        return;
+    }
 
     cout << "\n--- Add New Employee ---\n";
 
@@ -507,7 +598,15 @@ void addEmployee() {
 
 } // mostafa2
 
+<<<<<<< Updated upstream
 void updateEmployee() {
+=======
+void updateEmployee(Employee employees[], int empCount) {
+    if (!isAdminLoggedIn) {
+        cout << "Access denied! Admin login required.\n";
+        return;
+    }
+>>>>>>> Stashed changes
 
     int id;
 
@@ -547,9 +646,16 @@ void updateEmployee() {
 
 void calculateSalary(long long empId)
 {
+<<<<<<< Updated upstream
     int index = -1;
 
     // 1. Search for the employee's actual position (index) in the array
+=======
+    if (!isAdminLoggedIn) {
+        cout << "Access denied! Admin login required.\n";
+        return;
+    }
+>>>>>>> Stashed changes
     for (int i = 0; i < employeeCount; i++) {
         if (employees[i].employeeID == empId) {
             index = i;
@@ -569,6 +675,7 @@ void calculateSalary(long long empId)
         return;
     }
 
+<<<<<<< Updated upstream
     // 4. Calculate everything using the correct 'index'
     employees[index].overtime = employees[index].TotalHoursWorked - employees[index].WorkHoursPerMonth;
 
@@ -590,12 +697,23 @@ void calculateSalary(long long empId)
 
 void recordAttendance() {
     long long id;
+=======
+void recordAttendance() {
+    if (!isAdminLoggedIn) {
+        cout << "Access denied! Admin login required.\n";
+        return;
+    }
+>>>>>>> Stashed changes
     bool found = false;
     cout << "\n========================================\n";
     cout << "           Record Attendance\n";
     cout << "========================================\n";
     cout << "Enter Employee ID: ";
     cin >> id;
+
+    long long id;
+    cout << "Enter Employee ID: ";
+    id = getValidId();
 
     for (int i = 0; i < employeeCount; i++) {
         if (employees[i].employeeID == id) {
@@ -631,7 +749,14 @@ void recordAttendance() {
 }
 
 void deleteEmployee() {
+<<<<<<< Updated upstream
     long long id;
+=======
+    if (!isAdminLoggedIn) {
+        cout << "Access denied! Admin login required.\n";
+        return;
+    }
+>>>>>>> Stashed changes
     bool found = false;
     cout << "\n========================================\n";
     cout << "           Delete Employee\n";
@@ -658,3 +783,40 @@ void deleteEmployee() {
         cout << "========================================\n";
     }
 }
+
+
+int getValidInt() {
+    int value;
+
+    while (true) {
+        cin >> value;
+
+        if (!cin.fail()) {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return value;
+        }
+
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid input! Try again: ";
+    }
+}
+
+
+long long getValidId() {
+    long long id;
+
+    while (true) {
+        cin >> id;
+
+        if (!cin.fail() && id > 0) {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return id;
+        }
+
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid ID! Try again: ";
+    }
+}
+

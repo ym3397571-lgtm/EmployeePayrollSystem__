@@ -18,6 +18,8 @@ using namespace std;
 void showMainMenu();
 void handleAdmin();
 void handleEmployee();
+int getValidInt();
+long long getValidId();
 
 // =======================
 // Global Variables Definition
@@ -30,47 +32,51 @@ int employeeCount = 0;
 int attendanceCount = 0;
 int adminCount = 0;
 int currentEmployeeIndex = -1;
+int currentAdminIndex = -1;
+
+bool isAdminLoggedIn = false;
+bool isEmployeeLoggedIn = false;
+
 // =======================
 // MAIN
 // =======================
 int main() {
 
-	
 
-	// load data
-	loadEmployees();
-	loadAdmins();
-	loadAttendance();
-	int choice;
 
-	while (true) {
-		showMainMenu();
-		cin >> choice;
-		cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer after reading choice
+    // load data
+    loadEmployees();
+    loadAdmins();
+    loadAttendance();
+    int choice;
 
-		switch (choice) {
-		case 1:
-			handleAdmin();
-			break;
+    while (true) {
+        showMainMenu();
+        choice = getValidInt();
 
-		case 2:
-			handleEmployee();
-			break;
+        switch (choice) {
+        case 1:
+            handleAdmin();
+            break;
 
-		case 3:
-			cout << "Exiting system...\n";
+        case 2:
+            handleEmployee();
+            break;
 
-			// save data before exit
-			saveEmployees();
-			saveAdmins();
-			saveAttendance();
+        case 3:
+            cout << "Exiting system...\n";
 
-			return 0;
+            // save data before exit
+            saveEmployees();
+            saveAdmins();
+            saveAttendance();
 
-		default:
-			cout << "Invalid choice!\n";
-		}
-	}
+            return 0;
+
+        default:
+            cout << "Invalid choice!\n";
+        }
+    }
 }
 
 // =======================
@@ -86,13 +92,13 @@ void showMainMenu() {
     cout << "Choose: ";
 }  // youssef 
 
- 
+
 void handleAdmin() {
     if (adminLogin()) {
         cout << "\n========================================\n";
         cout << "Login Successful\n";
         cout << "========================================\n";
-		int choice_admin;
+        int choice_admin;
         long long  empId;
         while (true) {
             cout << "\n===== Admin Menu =====\n";
@@ -103,78 +109,95 @@ void handleAdmin() {
             cout << "5. Calculate Salary\n";
             cout << "6. Logout\n";
             cout << "Choose: ";
-            cin >> choice_admin;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer after reading choice
+			choice_admin = getValidInt();
             switch (choice_admin) {
-                case 1:
-                    addEmployee();
-                    break;
-                case 2:
-                    updateEmployee();
-                    break;
-                case 3:
-                    deleteEmployee();
-                    break;
-                case 4:
-                    recordAttendance();
-                    break;
-                case 5: {
-                    cout << "Enter Employee ID to calculate salary: ";
-                    cin >> empId;
-                    calculateSalary(empId);
-                    break;
-                }
-                case 6:
-                    cout << "Logging out...\n";
-                    return;
-                default:
-                    cout << "Invalid choice!\n";
-			}
+            case 1:
+                addEmployee();
+                break;
+            case 2:
+                updateEmployee();
+                break;
+            case 3:
+                deleteEmployee();
+                break;
+            case 4:
+                recordAttendance();
+                break;
+            case 5: {
+                cout << "Enter Employee ID to calculate salary: ";
+                empId = getValidId();
+                calculateSalary(empId);
+                break;
+            }
+            case 6:
+                cout << "Logging out...\n";
+                return;
+            default:
+                cout << "Invalid choice!\n";
+            }
         }
-     
-      
+
+
     }
     else {
         cout << "\nError: Invalid username or password\n";
     }
-}  
+}
 
 
-void handleEmployee()    { 
-    if (employeeLogin()) {
-        cout << "Employee logged in successfully.\n";
-        int choice_employe;
-        while (true) {
-            cout << "\n===== Employee Menu =====\n";
-            cout << "1. View Personal Information\n";
-            cout << "2. View Salary Information\n";
-            cout << "3. View Attendance Record\n";
-            cout << "4. Logout\n";
-            cout << "Choose: ";
-            cin >> choice_employe;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer after reading choice
-            switch (choice_employe) {
-                case 1:
-                    viewPersonalInfo();
-                    break;
-                case 2:
-					calculateSalary(employees[currentEmployeeIndex].employeeID); // Ensure salary is calculated before viewing
-                    viewSalary();
-                    break;
-                case 3:
-                    viewAttendance();
-                    break;
-                case 4:
-                    cout << "Logging out...\n";
-                    return;
-                default:
-                    cout << "Invalid choice!\n";
-            }
-		}
+void handleEmployee() {
+
+    int chance = 3;
+    bool loggedIn = false;
+
+    while (chance > 0) {
+        if (employeeLogin()) {
+            loggedIn = true;
+            break;
+        }
+
+        chance--;
+        cout << "Invalid credentials (" << chance << " attempts left)\n";
     }
-    else {
-        cout << "Invalid employee credentials.\n";
-	}
+
+    if (!loggedIn) {
+        cout << "Access denied!\n";
+        return;
+    }
+
+    int choice;
+
+    while (true) {
+        cout << "\n===== EMPLOYEE MENU =====\n";
+        cout << "1. View Personal Information\n";
+        cout << "2. View Salary Information\n";
+        cout << "3. View Attendance Record\n";
+        cout << "4. Logout\n";
+        cout << "Choose: ";
+		choice = getValidInt();
+
+        switch (choice) {
+        case 1:
+            viewPersonalInfo();
+            break;
+
+        case 2:
+            calculateSalary(employees[currentEmployeeIndex].employeeID);
+            viewSalary();
+            break;
+
+        case 3:
+            viewAttendance();
+            break;
+
+        case 4:
+            cout << "Logging out...\n";
+            return;
+
+        default:
+            cout << "Invalid choice!\n";
+        }
+    }
 }
 
 
@@ -194,6 +217,8 @@ bool adminLogin() {
 
     for (int i = 0; i < adminCount; i++) {
         if (admins[i].username == adminname && admins[i].password == adminpass) {
+            currentAdminIndex = i;
+            isAdminLoggedIn = true;
             return true;
         }
     }
@@ -215,6 +240,7 @@ bool employeeLogin()
         if (employees[i].username == Username && employees[i].password == Password)
         {
             currentEmployeeIndex = i;
+            isEmployeeLoggedIn = true;
             cout << "Login successful\n";
             return true;
 
@@ -331,11 +357,11 @@ void loadAdmins() {
     }
     adminCount = 0;
 
-	while (adminCount < MAX_ADMINS) {
+    while (adminCount < MAX_ADMINS) {
 
-		AdminAccount& a = admins[adminCount];
-		if (!(in >> a.adminID)) break;
-        in.ignore(); 
+        AdminAccount& a = admins[adminCount];
+        if (!(in >> a.adminID)) break;
+        in.ignore();
         getline(in, a.username, '|');
         getline(in, a.password);
         adminCount++;
@@ -402,14 +428,14 @@ void viewSalary() {
     cout << "\n========================================\n";
     cout << "          View Salary Information\n";
     cout << "========================================\n";
-            cout << "Employee ID: " << employees[currentEmployeeIndex].employeeID << "\n";
-            cout << "Name: " << employees[currentEmployeeIndex].name << "\n";
-            cout << "Basic Salary: " << fixed << setprecision(2) << employees[currentEmployeeIndex].basicSalary << "\n";
-            cout << "Bonus: " << fixed << setprecision(2) << employees[currentEmployeeIndex].bonus << "\n";
-            cout << "Overtime: " << fixed << setprecision(2) << employees[currentEmployeeIndex].overtime << "\n";
-            cout << "Tax: " << fixed << setprecision(2) << employees[currentEmployeeIndex].tax << "\n";
-            cout << "Net Salary: " << fixed << setprecision(2) << employees[currentEmployeeIndex].netSalary << "\n";
-            cout << "========================================\n";
+    cout << "Employee ID: " << employees[currentEmployeeIndex].employeeID << "\n";
+    cout << "Name: " << employees[currentEmployeeIndex].name << "\n";
+    cout << "Basic Salary: " << fixed << setprecision(2) << employees[currentEmployeeIndex].basicSalary << "\n";
+    cout << "Bonus: " << fixed << setprecision(2) << employees[currentEmployeeIndex].bonus << "\n";
+    cout << "Overtime: " << fixed << setprecision(2) << employees[currentEmployeeIndex].overtime << "\n";
+    cout << "Tax: " << fixed << setprecision(2) << employees[currentEmployeeIndex].tax << "\n";
+    cout << "Net Salary: " << fixed << setprecision(2) << employees[currentEmployeeIndex].netSalary << "\n";
+    cout << "========================================\n";
 } // mostafa elhadidy
 
 void viewAttendance() {
@@ -443,7 +469,7 @@ void addEmployee() {
 
     cout << "\n--- Add New Employee ---\n";
 
-    if (employeeCount >= MAX_EMPLOYEES) {
+    if (employeeCount >= 100) {
 
         cout << "Employee list is full!\n";
 
@@ -455,11 +481,11 @@ void addEmployee() {
 
     cout << "Enter ID: ";
 
-    cin >> e.employeeID;
+    e.employeeID = getValidId();
 
     // Check duplicate ID
 
-    for (int i = 0; i < MAX_EMPLOYEES; i++) {
+    for (int i = 0; i < employeeCount; i++) {
         if (employees[i].employeeID == e.employeeID) {
 
             cout << "ID already exists!\n";
@@ -471,12 +497,25 @@ void addEmployee() {
     }
 
     cout << "Enter Name: ";
-
     cin >> e.name;
 
-    cout << "Enter Salary: ";
+    cout << "Enter Username: ";
+    cin >> e.username;
 
-    cin >> e.basicSalary;
+    cout << "Enter Password: ";
+    cin >> e.password;
+
+    cout << "Enter Age: ";
+    e.age = getValidInt();
+
+    cout << "Enter Phone: ";
+    cin >> e.phone;
+
+    cout << "Enter Role: ";
+    cin >> e.role;
+
+    cout << "Enter Salary: ";
+    e.basicSalary = getValidInt();
 
     employees[employeeCount] = e;
 
@@ -494,9 +533,9 @@ void updateEmployee() {
 
     cout << "Enter Employee ID: ";
 
-    cin >> id;
+    id = getValidId();
 
-    for (int i = 0; i < MAX_EMPLOYEES; i++) {
+    for (int i = 0; i < employeeCount ; i++) {
 
         if (employees[i].employeeID == id) {
 
@@ -635,5 +674,42 @@ void deleteEmployee() {
     if (!found) {
         cout << "Error: Employee ID " << id << " not found.\n";
         cout << "========================================\n";
+    }
+}
+
+int getValidInt() {
+    int value;
+
+    while (true) {
+        cin >> value;
+
+        if (!cin.fail()) {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return value;
+        }
+
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid input! Please enter a number: ";
+    }
+
+
+
+}
+
+long long  getValidId() {
+    long long id ;
+
+    while (true) {
+        cin >> id ;
+
+        if (!cin.fail()) {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return id ;
+        }
+
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid input! Please enter a number: ";
     }
 }

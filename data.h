@@ -47,22 +47,26 @@ const int MAX_EMPLOYEES = 100;
 const int MAX_ATTENDANCE = 200;
 const int MAX_ADMINS = 2;
 const double TaxRate = 0.14;
+const double WorkHoursPerMonth = 160.0;
 
 // =======================
-// Arrays
+// SystemData Struct
 // =======================
 
-extern Employee employees[MAX_EMPLOYEES];
-extern Attendance attendanceRecords[MAX_ATTENDANCE];
-extern AdminAccount admins[MAX_ADMINS];
+struct SystemData {
+    Employee employees[MAX_EMPLOYEES];
+    Attendance attendanceRecords[MAX_ATTENDANCE];
+    AdminAccount admins[MAX_ADMINS];
 
-// =======================
-// Counters
-// =======================
+    int employeeCount = 0;
+    int attendanceCount = 0;
+    int adminCount = 0;
 
-extern int employeeCount;
-extern int attendanceCount;
-extern int adminCount;
+    int currentEmployeeIndex = -1;
+    int currentAdminIndex = -1;
+};
+
+extern SystemData data;
 
 // =======================
 // Roles

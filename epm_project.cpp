@@ -443,7 +443,7 @@ void addEmployee() {
 
     cout << "\n--- Add New Employee ---\n";
 
-    if (employeeCount >= 100) {
+    if (employeeCount >= MAX_EMPLOYEES) {
 
         cout << "Employee list is full!\n";
 

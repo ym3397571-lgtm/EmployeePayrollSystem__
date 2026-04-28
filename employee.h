@@ -10,9 +10,9 @@ using namespace std;
 // =======================
 
 bool employeeLogin();               // تسجيل دخول الموظف
-void viewPersonalInfo(int currentEmployeeIndex);            // عرض البيانات الشخصية للموظف
-void viewSalary(int currentEmployeeIndex);                  // عرض تفاصيل المرتب
-void viewAttendance(int currentEmployeeIndex);              // عرض سجل الحضور للموظف
+void viewPersonalInfo();            // عرض البيانات الشخصية للموظف
+void viewSalary();                  // عرض تفاصيل المرتب
+void viewAttendance();              // عرض سجل الحضور للموظف
 
 // =======================
 // Optional / Additional Employee Functions

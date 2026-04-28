@@ -9,11 +9,11 @@ using namespace std;
 // Admin Panel Functions
 // =======================
 
-bool adminLogin(string username, string password);                  // تسجيل دخول الأدمن
-void addEmployee();                 // إضافة موظف جديد
-void updateEmployee();              // تعديل بيانات موظف موجود
-void deleteEmployee();              // حذف موظف
-void recordAttendance();            // تسجيل حضور الموظفين
-void calculateSalary(long long employeeID);             // حساب صافي الراتب لكل موظف
+bool adminLogin();                  // تسجيل دخول الأدمن
+void addEmployee(long long empId);                 // إضافة موظف جديد
+void updateEmployee(long long empId);              // تعديل بيانات موظف موجود
+void deleteEmployee(long long empId);              // حذف موظف
+void recordAttendance(long long empId);            // تسجيل حضور الموظفين
+void calculateSalary(long long empId);             // حساب صافي الراتب لكل موظف
 
 #endif // ADMIN_H

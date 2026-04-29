@@ -14,6 +14,7 @@ void addEmployee();                 // إضافة موظف جديد
 void updateEmployee();              // تعديل بيانات موظف موجود
 void deleteEmployee();              // حذف موظف
 void recordAttendance();            // تسجيل حضور الموظفين
+void deleteAttendance();
 void calculateSalary(long long empId);             // حساب صافي الراتب لكل موظف
 
 #endif // ADMIN_H

@@ -95,6 +95,7 @@ void handleAdmin() {
     if (adminLogin()) {
         cout << "\n========================================\n";
         cout << "           Login Successful\n";
+        cout << "           Welcome, " << admins[currentAdminIndex].name << "!\n";
         cout << "========================================\n";
         int choice_admin;
         long long  empId;
@@ -169,6 +170,7 @@ void handleEmployee() {
 
         cout << "\n========================================\n";
         cout << "           Login Successful\n";
+		cout << "           Welcome, " << employees[currentEmployeeIndex].name << "!\n";
         cout << "========================================\n";
 
         cout << "\n===== EMPLOYEE MENU =====\n";
@@ -361,6 +363,7 @@ void loadAdmins() {
         AdminAccount& a = admins[adminCount];
         if (!(in >> a.adminID)) break;
         in.ignore();
+        getline(in, a.name, '|');
         getline(in, a.username, '|');
         getline(in, a.password);
         adminCount++;
@@ -371,7 +374,7 @@ void loadAdmins() {
 void saveAdmins() {
     ofstream out("admins.txt");
     for (int i = 0; i < adminCount; i++) {
-        out << admins[i].adminID << "|" << admins[i].username << "|" << admins[i].password << endl;
+        out << admins[i].adminID << "|" << admins[i].name << "|" << admins[i].username << "|" << admins[i].password << endl;
     }
     out.close();
 }

@@ -27,7 +27,7 @@ struct Employee {
 
 struct Attendance {
     long long employeeID = 0 ;         // ID الموظف
-    string month  ;           // الشهر
+    int month = 0  ;           // الشهر
     int daysPresent = 0 ;        // عدد أيام الحضور
     int daysAbsent = 0 ;         // عدد أيام الغياب
 };

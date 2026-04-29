@@ -629,7 +629,7 @@ void recordAttendance() {
 
             attendanceCount++;
             cout << "\n";
-            cout << "   Attendance recorded successfully.\n";
+            cout << "Attendance recorded successfully.\n";
             cout << "========================================\n";
             saveAttendance();
         }

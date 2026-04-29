@@ -152,6 +152,10 @@ void handleEmployee() {
     while (chance > 0) {
         if (employeeLogin()) {
             loggedIn = true;
+            cout << "\n========================================\n";
+            cout << "           Login Successful\n";
+            cout << "           Welcome, " << employees[currentEmployeeIndex].name << "!\n";
+            cout << "========================================\n";
             break;
         }
 
@@ -167,12 +171,6 @@ void handleEmployee() {
     int choice;
 
     while (true) {
-
-        cout << "\n========================================\n";
-        cout << "           Login Successful\n";
-		cout << "           Welcome, " << employees[currentEmployeeIndex].name << "!\n";
-        cout << "========================================\n";
-
         cout << "\n===== EMPLOYEE MENU =====\n";
         cout << "1. View Personal Information\n";
         cout << "2. View Salary Information\n";
@@ -443,11 +441,12 @@ void viewSalary() {
 
 void viewAttendance() {
     cout << "\n========================================\n";
-    cout << "           Attendance Record\n";
+    cout << "           Attendance Records\n";
     cout << "========================================\n";
 
     cout << "\n========================================\n";
     cout << "Employee ID: " << employees[currentEmployeeIndex].employeeID << "\n";
+    cout << "Name: " << employees[currentEmployeeIndex].name << "\n";
 
     bool found = false;
     for (int i = 0; i < attendanceCount; i++) {

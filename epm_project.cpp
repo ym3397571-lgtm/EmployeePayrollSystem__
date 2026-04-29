@@ -175,7 +175,7 @@ void handleEmployee() {
     int choice;
 
     while (true) {
-        cout << "\n===== EMPLOYEE MENU =====\n";
+        cout << "\n===== Employee Menu =====\n";
         cout << "1. View Personal Information\n";
         cout << "2. View Salary Information\n";
         cout << "3. View Attendance Record\n";

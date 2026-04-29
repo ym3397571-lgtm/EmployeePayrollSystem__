@@ -34,8 +34,6 @@ int adminCount = 0;
 int currentEmployeeIndex = -1;
 int currentAdminIndex = -1;
 
-bool isAdminLoggedIn = false;
-bool isEmployeeLoggedIn = false;
 
 // =======================
 // MAIN
@@ -168,6 +166,11 @@ void handleEmployee() {
     int choice;
 
     while (true) {
+
+        cout << "\n========================================\n";
+        cout << "           Login Successful\n";
+        cout << "========================================\n";
+
         cout << "\n===== EMPLOYEE MENU =====\n";
         cout << "1. View Personal Information\n";
         cout << "2. View Salary Information\n";
@@ -218,7 +221,6 @@ bool adminLogin() {
     for (int i = 0; i < adminCount; i++) {
         if (admins[i].username == adminname && admins[i].password == adminpass) {
             currentAdminIndex = i;
-            isAdminLoggedIn = true;
             return true;
         }
     }
@@ -240,15 +242,12 @@ bool employeeLogin()
         if (employees[i].username == Username && employees[i].password == Password)
         {
             currentEmployeeIndex = i;
-            isEmployeeLoggedIn = true;
-            cout << "Login successful\n";
             return true;
 
         }
 
 
     }
-    cout << "Login failed\n";
     return false;
 } // ahmed 
 
@@ -388,7 +387,8 @@ void loadAttendance() {
         Attendance& a = attendanceRecords[attendanceCount];
         if (!(in >> a.employeeID)) break;
         in.ignore();
-        getline(in, a.month, '|');
+        in >> a.month;
+        in.ignore();
         in >> a.daysPresent;
         in.ignore();
         in >> a.daysAbsent;
@@ -475,8 +475,8 @@ void addEmployee() {
     }
     // Create a new employee object and get details from user
     Employee e;
-
-    cout << "Enter ID: ";
+    cout << "Enter the following details:\n";
+    cout << "ID: ";
     cin >> e.employeeID;
 
     // Check duplicate ID
@@ -487,9 +487,11 @@ void addEmployee() {
         }
 
     }
-    cout << "User Name: ";
+    cout << "Username: ";
     cin >> e.username;
-    cout << "Enter Name: ";
+    cout << "Password: ";
+    cin >> e.password;
+    cout << "Name: ";
     cin >> e.name;
     cout << "Phone: ";
     cin >> e.phone;
@@ -497,9 +499,7 @@ void addEmployee() {
     cin >> e.role;  
     cout << "Age: ";
 	cin >> e.age;
-    cout << "Enter New Password: ";
-	cin >> e.password;
-    cout << "Enter Salary: ";
+    cout << "Salary: ";
     cin >> e.basicSalary;
 
     employees[employeeCount] = e;
@@ -596,7 +596,7 @@ void recordAttendance() {
     cout << "           Record Attendance\n";
     cout << "========================================\n";
     cout << "Enter Employee ID: ";
-    cin >> id;
+    id = getValidId();
 
     for (int i = 0; i < employeeCount; i++) {
         if (employees[i].employeeID == id) {
@@ -608,15 +608,28 @@ void recordAttendance() {
     if (found) {
         if (attendanceCount < MAX_ATTENDANCE) {
             attendanceRecords[attendanceCount].employeeID = id;
-            cout << "Enter Month: ";
-            cin.ignore();
-            getline(cin, attendanceRecords[attendanceCount].month);
+
+            while (true) {
+                cout << "Enter Month (1-12): ";
+                attendanceRecords[attendanceCount].month = getValidInt();
+
+                if (attendanceRecords[attendanceCount].month >= 1 && attendanceRecords[attendanceCount].month <= 12) {
+                    break; // Valid month, exit loop
+                }
+                else {
+                    cout << "Error: Month must be between 1 and 12.\n";
+                }
+            }
+
             cout << "Enter Days Present: ";
-            cin >> attendanceRecords[attendanceCount].daysPresent;
+            attendanceRecords[attendanceCount].daysPresent = getValidInt();
+
             cout << "Enter Days Absent: ";
-            cin >> attendanceRecords[attendanceCount].daysAbsent;
+            attendanceRecords[attendanceCount].daysAbsent = getValidInt();
+
             attendanceCount++;
-            cout << "Attendance recorded successfully.\n";
+            cout << "\n";
+            cout << "   Attendance recorded successfully.\n";
             cout << "========================================\n";
             saveAttendance();
         }
@@ -638,16 +651,21 @@ void deleteEmployee() {
     cout << "           Delete Employee\n";
     cout << "========================================\n";
     cout << "Enter Employee ID: ";
-    cin >> id;
+
+    id = getValidId();
 
     for (int j = 0; j < employeeCount; j++) {
         if (employees[j].employeeID == id) {
             found = true;
+
+            // Shift elements to the left to overwrite the deleted employee
             for (int k = j; k < employeeCount - 1; k++) {
                 employees[k] = employees[k + 1];
             }
+
             cout << "Employee with ID " << id << " deleted successfully.\n";
             cout << "========================================\n";
+
             employeeCount--;
             saveEmployees();
             break;

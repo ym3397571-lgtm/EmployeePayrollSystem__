@@ -466,18 +466,18 @@ void viewAttendance() {
 
 
 void addEmployee() {
-
     cout << "\n--- Add New Employee ---\n";
     // Check if employee list is full
     if (employeeCount >= MAX_EMPLOYEES) {
         cout << "Employee list is full!\n";
         return;
     }
-    // Create a new employee object and get details from user
+
     Employee e;
     cout << "Enter the following details:\n";
+
     cout << "ID: ";
-    cin >> e.employeeID;
+    e.employeeID = getValidId();
 
     // Check duplicate ID
     for (int i = 0; i < employeeCount; i++) {
@@ -485,27 +485,42 @@ void addEmployee() {
             cout << "ID already exists!\n";
             return;
         }
-
     }
     cout << "Username: ";
-    cin >> e.username;
+    getline(cin >> ws, e.username);
+
     cout << "Password: ";
-    cin >> e.password;
+    getline(cin, e.password);
+
     cout << "Name: ";
-    cin >> e.name;
+    getline(cin, e.name);
+
     cout << "Phone: ";
-    cin >> e.phone;
+    getline(cin, e.phone);
+
     cout << "Role: ";
-    cin >> e.role;  
+    getline(cin, e.role);
+
     cout << "Age: ";
-	cin >> e.age;
+    e.age = getValidInt();
+
     cout << "Salary: ";
-    cin >> e.basicSalary;
+    while (true) {
+        cin >> e.basicSalary;
+        if (!cin.fail() && e.basicSalary >= 0) {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            break;
+        }
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid input! Please enter a valid salary amount: ";
+    }
 
     employees[employeeCount] = e;
     employeeCount++;
 
     cout << "Employee added successfully!\n";
+    saveEmployees();
 }// mostafa2
 
 void updateEmployee() {

@@ -40,5 +40,8 @@
     <Text Include="employees.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="attendance.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

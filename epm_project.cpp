@@ -101,10 +101,6 @@ void handleAdmin() {
         long long  empId;
         while (true) {
             cout << "\n===== Admin Menu =====\n";
-            cout << "1. Add Employee\n";
-            cout << "2. Update Employee\n";
-            cout << "3. Delete Employee\n";
-            cout << "4. Record Attendance\n";
             cout << "1. Add/Update Employee\n";
             cout << "2. Delete Employee\n";
             cout << "3. Record/Update Attendance\n";
@@ -112,6 +108,9 @@ void handleAdmin() {
             cout << "5. Calculate Salary\n";
 <<<<<<< HEAD
             cout << "6. Search Employee\n";
+=======
+            cout << "6. View All Employees Data\n";
+>>>>>>> abd0562040685f873fcf6c14d50520790d3691d0
             cout << "7. Logout\n";
             cout << "Choose: ";
             choice_admin = getValidInt();
@@ -120,12 +119,9 @@ void handleAdmin() {
                 addEmployee();
                 break;
             case 2:
-                updateEmployee();
-                break;
-            case 3:
                 deleteEmployee();
                 break;
-            case 4:
+            case 3:
                 recordAttendance();
                 break;
 <<<<<<< HEAD
@@ -448,6 +444,13 @@ void viewPersonalInfo(int index)
     cout << "Age:      " << employees[index].age << endl;
     cout << "Phone:    " << employees[index].phone << endl;
     cout << "Role:     " << employees[index].role << endl;
+=======
+    cout << "Name:     " << employees[currentEmployeeIndex].name << endl;
+    cout << "ID:       " << employees[currentEmployeeIndex].employeeID << endl;
+    cout << "Age:      " << employees[currentEmployeeIndex].age << endl;
+    cout << "Phone:    " << employees[currentEmployeeIndex].phone << endl;
+    cout << "Role:     " << employees[currentEmployeeIndex].role << endl;
+>>>>>>> abd0562040685f873fcf6c14d50520790d3691d0
     cout << "========================================\n";
 } //  ahmed
 
@@ -559,7 +562,7 @@ void addEmployee() {
     saveEmployees();
 }// mostafa2
 
-void updateEmployee() {
+void updateEmployee(long long empID) {
 
     int id;
 
@@ -775,10 +778,12 @@ void deleteAttendance() {
 }//abdelrahman
 
 void updateAttendance(long long empId) {
+>>>>>>> abd0562040685f873fcf6c14d50520790d3691d0
     int month;
     bool found = false;
 
     cout << "\n========================================\n";
+<<<<<<< HEAD
     cout << "           Delete Attendance\n";
     cout << "========================================\n";
 

@@ -125,19 +125,30 @@ void handleAdmin() {
             case 4:
                 recordAttendance();
                 break;
+<<<<<<< HEAD
 
+=======
+            case 4:
+                deleteAttendance();
+                break;
             case 5: {
                 cout << "Enter Employee ID to calculate salary: ";
                 empId = getValidId();
                 calculateSalary(empId);
                 break;
             }
+<<<<<<< HEAD
             case 6: {
                 cout << "Enter Employee ID to search: ";
                 empId = getValidId();
                 searchEmployee(empId);
                 break;
             }
+=======
+            case 6:
+                viewAllEmployeesData();
+                break;
+>>>>>>> abd0562040685f873fcf6c14d50520790d3691d0
             case 7:
                 cout << "Logging out...\n";
                 return;
@@ -426,6 +437,7 @@ void viewPersonalInfo(int index)
     cout << "\n========================================\n";
     cout << "           EMPLOYEE PROFILE             \n";
     cout << "========================================\n";
+<<<<<<< HEAD
     cout << "Employee ID: " << employees[index].employeeID << "\n";
     cout << "Name:     " << employees[index].name << endl;
     cout << "ID:       " << employees[index].employeeID << endl;
@@ -451,6 +463,7 @@ void viewSalary(int index) {
 
 void viewAttendance(int index) {
     cout << "\n========================================\n";
+<<<<<<< HEAD
     cout << "        Attendance Records\n";
     cout << "========================================\n";
 
@@ -494,7 +507,7 @@ void addEmployee() {
     for (int i = 0; i < employeeCount; i++) {
         if (employees[i].employeeID == e.employeeID) {
             cout << "ID already exists!\n";
-            return;
+            updateEmployee(e.employeeID);
         }
     }
     cout << "Username: ";
@@ -616,6 +629,12 @@ void recordAttendance() {
     cout << "      Record Attendance\n";
     cout << "========================================\n";
 
+
+    cout << "\n========================================\n";
+    cout << "           Record Attendance\n";
+    cout << "========================================\n";
+
+    // 1. Get and Validate Employee ID
     while (true) {
         cout << "Enter Employee ID: ";
         id = getValidId();
@@ -653,12 +672,19 @@ void recordAttendance() {
     int recordIndex = -1;
     for (int i = 0; i < attendanceCount; i++) {
         if (attendanceRecords[i].employeeID == id && attendanceRecords[i].month == month) {
+=======
+    // 2. Check for an Existing Record using ONLY the ID
+    int recordIndex = -1;
+    for (int i = 0; i < attendanceCount; i++) {
+        if (attendanceRecords[i].employeeID == id) {
+>>>>>>> abd0562040685f873fcf6c14d50520790d3691d0
             recordIndex = i;
             break;
         }
     }
 
     if (recordIndex != -1) {
+<<<<<<< HEAD
         cout << "\nRecord found for Month " << month << "! Updating...\n";
         cout << "Current Days Present: " << attendanceRecords[recordIndex].daysPresent << "\n";
         cout << "Current Days Absent: " << attendanceRecords[recordIndex].daysAbsent << "\n";
@@ -673,10 +699,31 @@ void recordAttendance() {
     }
     else {
 
+        // --- RECORD EXISTS: Call Update Flow ---
+		cout << "\nExisting attendance record found for this ID. Redirecting to update...\n";
+        updateAttendance(id);
+    }
+    else {
+        // --- NO RECORD EXISTS: Creation Flow ---
         if (attendanceCount >= MAX_ATTENDANCE) {
             cout << "Error: Attendance records are full.\n";
             cout << "========================================\n";
             return;
+        }
+
+        cout << "\nNo existing record found for this ID. Creating a new one.\n";
+
+        int month;
+        while (true) {
+            cout << "Enter Month (1-12): ";
+            month = getValidInt();
+
+            if (month >= 1 && month <= 12) {
+                break;
+            }
+            else {
+                cout << "Error: Month must be between 1 and 12. Try again: ";
+            }
         }
 
         attendanceRecords[attendanceCount].employeeID = id;
@@ -699,6 +746,12 @@ void recordAttendance() {
 
 void deleteAttendance() {
     long long id;
+        cout << "========================================\n";
+        saveAttendance();
+    }
+}//abdelrahman
+
+void updateAttendance(long long empId) {
     int month;
     bool found = false;
 
@@ -761,6 +814,7 @@ void deleteAttendance() {
         cout << "========================================\n";
     }
 }//eyad
+<<<<<<< HEAD
 
 void deleteEmployee() {
     long long id;

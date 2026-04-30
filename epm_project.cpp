@@ -105,7 +105,9 @@ void handleAdmin() {
             cout << "2. Update Employee\n";
             cout << "3. Delete Employee\n";
             cout << "4. Record Attendance\n";
+            cout << "2. Delete Employee\n";
             cout << "5. Calculate Salary\n";
+<<<<<<< HEAD
             cout << "6. Search Employee\n";
             cout << "7. Logout\n";
             cout << "Choose: ";
@@ -831,6 +833,7 @@ long long  getValidId() {
     }
 }
 
+<<<<<<< HEAD
 int findEmployeeIndex(long long id) {
     for (int i = 0; i < employeeCount; i++) {
         if (employees[i].employeeID == id) return i;
@@ -877,3 +880,34 @@ void searchEmployee(long long id) {
         cout << "Invalid choice!\n";
     }
 }
+=======
+void viewAllEmployeesData() {
+    cout << "\n========================================\n";
+    cout << "          ALL EMPLOYEES REPORT          \n";
+    cout << "========================================\n";
+
+    if (employeeCount == 0) {
+        cout << "No employees found in the system.\n";
+        cout << "========================================\n";
+        return;
+    }
+
+    // 1. Save the original index so we don't break the system state
+    int originalIndex = currentEmployeeIndex;
+
+    // 2. Loop through all employees
+    for (int i = 0; i < employeeCount; i++) {
+        cout << "\n\n>>>>>>>>>> EMPLOYEE #" << (i + 1) << " <<<<<<<<<<";
+
+        // Temporarily trick the program into thinking 'i' is the logged-in employee
+        currentEmployeeIndex = i;
+
+        // Call your existing functions!
+        viewPersonalInfo();
+        viewSalary();
+        viewAttendance();
+    }
+
+    // 3. Restore the original index when finished
+    currentEmployeeIndex = originalIndex;
+}//mahmoud 

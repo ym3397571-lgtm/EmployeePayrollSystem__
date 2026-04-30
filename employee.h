@@ -14,11 +14,4 @@ void viewPersonalInfo(int index);            // عرض البيانات الشخ
 void viewSalary(int index );                  // عرض تفاصيل المرتب
 void viewAttendance(int index );              // عرض سجل الحضور للموظف
 
-// =======================
-// Optional / Additional Employee Functions
-// =======================
-
-//void viewDepartmentSalarySummary();  // عرض رواتب القسم
-//void requestLeave();                 // تقديم طلب إجازة (يمكن إضافتها لاحقًا)
-
 #endif

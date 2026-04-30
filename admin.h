@@ -11,7 +11,7 @@ using namespace std;
 
 bool adminLogin();                  // تسجيل دخول الأدمن
 void addEmployee();                 // إضافة موظف جديد
-void updateEmployee(long long empId);              // تعديل بيانات موظف موجود
+void updateEmployee();              // تعديل بيانات موظف موجود
 void deleteEmployee();              // حذف موظف
 void recordAttendance();            // تسجيل حضور الموظفين
 void deleteAttendance();

@@ -26,18 +26,14 @@ struct Employee {
 };
 
 struct Attendance {
-    long long employeeID = 0 ;         // ID الموظف
-<<<<<<< HEAD
+    long long employeeID ;         // ID الموظف
     int  month  ;           // الشهر
-=======
-    int month = 0  ;           // الشهر
->>>>>>> abd0562040685f873fcf6c14d50520790d3691d0
     int daysPresent = 0 ;        // عدد أيام الحضور
     int daysAbsent = 0 ;         // عدد أيام الغياب
 };
 
 struct AdminAccount {
-    long long adminID = 0 ;            // معرف الأدمن
+    long long adminID ;            // معرف الأدمن
     string name;
     string username ;
     string password ;        // كلمة السر

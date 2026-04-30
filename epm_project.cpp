@@ -105,7 +105,10 @@ void handleAdmin() {
             cout << "2. Update Employee\n";
             cout << "3. Delete Employee\n";
             cout << "4. Record Attendance\n";
+            cout << "1. Add/Update Employee\n";
             cout << "2. Delete Employee\n";
+            cout << "3. Record/Update Attendance\n";
+            cout << "4. Delete Attendance\n";
             cout << "5. Calculate Salary\n";
 <<<<<<< HEAD
             cout << "6. Search Employee\n";
@@ -131,6 +134,7 @@ void handleAdmin() {
             case 4:
                 deleteAttendance();
                 break;
+>>>>>>> abd0562040685f873fcf6c14d50520790d3691d0
             case 5: {
                 cout << "Enter Employee ID to calculate salary: ";
                 empId = getValidId();
@@ -469,6 +473,14 @@ void viewAttendance(int index) {
 
     cout << "Employee ID: " << employees[index].employeeID << "\n";
     cout << "Name: " << employees[index].name << "\n";
+=======
+    cout << "           Attendance Records\n";
+    cout << "========================================\n";
+
+    cout << "\n========================================\n";
+    cout << "Employee ID: " << employees[currentEmployeeIndex].employeeID << "\n";
+    cout << "Name: " << employees[currentEmployeeIndex].name << "\n";
+>>>>>>> abd0562040685f873fcf6c14d50520790d3691d0
 
     bool found = false;
 
@@ -624,17 +636,20 @@ void calculateSalary(long long empId)
 void recordAttendance() {
     long long id;
     bool employeeExists = false;
+<<<<<<< HEAD
 
     cout << "\n========================================\n";
     cout << "      Record Attendance\n";
     cout << "========================================\n";
 
+=======
 
     cout << "\n========================================\n";
     cout << "           Record Attendance\n";
     cout << "========================================\n";
 
     // 1. Get and Validate Employee ID
+>>>>>>> abd0562040685f873fcf6c14d50520790d3691d0
     while (true) {
         cout << "Enter Employee ID: ";
         id = getValidId();
@@ -655,6 +670,7 @@ void recordAttendance() {
         }
     }
 
+<<<<<<< HEAD
     int month;
     while (true) {
         cout << "Enter Month (1-12): ";
@@ -699,18 +715,22 @@ void recordAttendance() {
     }
     else {
 
+=======
         // --- RECORD EXISTS: Call Update Flow ---
 		cout << "\nExisting attendance record found for this ID. Redirecting to update...\n";
         updateAttendance(id);
     }
     else {
         // --- NO RECORD EXISTS: Creation Flow ---
+>>>>>>> abd0562040685f873fcf6c14d50520790d3691d0
         if (attendanceCount >= MAX_ATTENDANCE) {
             cout << "Error: Attendance records are full.\n";
             cout << "========================================\n";
             return;
         }
 
+<<<<<<< HEAD
+=======
         cout << "\nNo existing record found for this ID. Creating a new one.\n";
 
         int month;
@@ -726,6 +746,7 @@ void recordAttendance() {
             }
         }
 
+>>>>>>> abd0562040685f873fcf6c14d50520790d3691d0
         attendanceRecords[attendanceCount].employeeID = id;
         attendanceRecords[attendanceCount].month = month;
 
@@ -737,6 +758,7 @@ void recordAttendance() {
 
         attendanceCount++;
         cout << "\nAttendance recorded successfully.\n";
+<<<<<<< HEAD
     }
 
     cout << "========================================\n";
@@ -746,12 +768,107 @@ void recordAttendance() {
 
 void deleteAttendance() {
     long long id;
+=======
         cout << "========================================\n";
         saveAttendance();
     }
 }//abdelrahman
 
 void updateAttendance(long long empId) {
+    int month;
+    bool found = false;
+
+    cout << "\n========================================\n";
+    cout << "           Delete Attendance\n";
+    cout << "========================================\n";
+
+    while (true) {
+        cout << "Enter Employee ID: ";
+        id = getValidId();
+
+        bool idExists = false;
+        for (int i = 0; i < attendanceCount; i++) {
+            if (attendanceRecords[i].employeeID == id) {
+                idExists = true;
+                break;
+            }
+        }
+
+        if (idExists) {
+            break;
+        }
+        else {
+            cout << "ID not found! Please enter again.\n\n";
+        }
+    }
+
+    cout << "Enter Month (1-12) to delete: ";
+=======
+    cout << "           Update Attendance\n";
+    cout << "========================================\n";
+
+    // --- ID Validation Loop Removed (Handled in recordAttendance) ---
+
+    // --- Month Validation Loop ---
+    cout << "Enter Month (1-12) to update: ";
+>>>>>>> abd0562040685f873fcf6c14d50520790d3691d0
+    while (true) {
+        month = getValidInt();
+        if (month >= 1 && month <= 12) {
+            break;
+        }
+        else {
+            cout << "Error: Month must be between 1 and 12. Try again: ";
+        }
+    }
+
+<<<<<<< HEAD
+    for (int i = 0; i < attendanceCount; i++) {
+        if (attendanceRecords[i].employeeID == id && attendanceRecords[i].month == month) {
+            found = true;
+
+            // Shift elements to the left to overwrite the deleted record
+            for (int j = i; j < attendanceCount - 1; j++) {
+                attendanceRecords[j] = attendanceRecords[j + 1];
+            }
+
+            attendanceCount--;
+
+            cout << "Attendance record deleted successfully.\n";
+=======
+    // --- Update Process ---
+    for (int i = 0; i < attendanceCount; i++) {
+        if (attendanceRecords[i].employeeID == empId && attendanceRecords[i].month == month) {
+            found = true;
+
+            cout << "Current Days Present: " << attendanceRecords[i].daysPresent << "\n";
+            cout << "Current Days Absent: " << attendanceRecords[i].daysAbsent << "\n";
+
+            cout << "Enter New Days Present: ";
+            attendanceRecords[i].daysPresent = getValidInt();
+
+            cout << "Enter New Days Absent: ";
+            attendanceRecords[i].daysAbsent = getValidInt();
+
+            cout << "Attendance updated successfully!\n";
+>>>>>>> abd0562040685f873fcf6c14d50520790d3691d0
+            cout << "========================================\n";
+
+            saveAttendance();
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "Error: No record found for Month " << month << ".\n";
+        cout << "========================================\n";
+    }
+}//eyad
+<<<<<<< HEAD
+=======
+
+void deleteAttendance() {
+    long long id;
     int month;
     bool found = false;
 
@@ -813,8 +930,8 @@ void updateAttendance(long long empId) {
         cout << "Error: No record found for Month " << month << ".\n";
         cout << "========================================\n";
     }
-}//eyad
-<<<<<<< HEAD
+}//mostafa hadidi
+>>>>>>> abd0562040685f873fcf6c14d50520790d3691d0
 
 void deleteEmployee() {
     long long id;
@@ -965,3 +1082,4 @@ void viewAllEmployeesData() {
     // 3. Restore the original index when finished
     currentEmployeeIndex = originalIndex;
 }//mahmoud 
+>>>>>>> abd0562040685f873fcf6c14d50520790d3691d0

@@ -101,9 +101,9 @@ void handleAdmin() {
         long long  empId;
         while (true) {
             cout << "\n===== Admin Menu =====\n";
-            cout << "1. Add Employee\n";
+            cout << "1. Add/Update Employee\n";
             cout << "2. Delete Employee\n";
-            cout << "3. Record Attendance\n";
+            cout << "3. Record/Update Attendance\n";
             cout << "4. Delete Attendance\n";
             cout << "5. Calculate Salary\n";
             cout << "6. View All Employees Data\n";
@@ -614,7 +614,7 @@ void recordAttendance() {
     bool employeeExists = false;
 
     cout << "\n========================================\n";
-    cout << "      Record Attendance\n";
+    cout << "           Record Attendance\n";
     cout << "========================================\n";
 
     // 1. Get and Validate Employee ID
@@ -647,38 +647,10 @@ void recordAttendance() {
         }
     }
 
-
     if (recordIndex != -1) {
-        // --- RECORD EXISTS: Update Flow ---
-        cout << "\nID found! Updating records...\n";
-
-        // Print the current records for this ID
-        cout << "Current Month Recorded: " << attendanceRecords[recordIndex].month << "\n";
-        cout << "Current Days Present: " << attendanceRecords[recordIndex].daysPresent << "\n";
-        cout << "Current Days Absent: " << attendanceRecords[recordIndex].daysAbsent << "\n\n";
-
-        // Ask for the new values to update
-        int month;
-        while (true) {
-            cout << "Enter New Month (1-12): ";
-            month = getValidInt();
-
-            if (month >= 1 && month <= 12) {
-                break;
-            }
-            else {
-                cout << "Error: Month must be between 1 and 12. Try again: ";
-            }
-        }
-        attendanceRecords[recordIndex].month = month;
-
-        cout << "Enter New Days Present: ";
-        attendanceRecords[recordIndex].daysPresent = getValidInt();
-
-        cout << "Enter New Days Absent: ";
-        attendanceRecords[recordIndex].daysAbsent = getValidInt();
-
-        cout << "\nAttendance updated successfully!\n";
+        // --- RECORD EXISTS: Call Update Flow ---
+		cout << "\nExisting attendance record found for this ID. Redirecting to update...\n";
+        updateAttendance(id);
     }
     else {
         // --- NO RECORD EXISTS: Creation Flow ---
@@ -714,12 +686,60 @@ void recordAttendance() {
 
         attendanceCount++;
         cout << "\nAttendance recorded successfully.\n";
+        cout << "========================================\n";
+        saveAttendance();
     }
-
-    cout << "========================================\n";
-    saveAttendance();
 }//abdelrahman
 
+void updateAttendance(long long empId) {
+    int month;
+    bool found = false;
+
+    cout << "\n========================================\n";
+    cout << "           Update Attendance\n";
+    cout << "========================================\n";
+
+    // --- ID Validation Loop Removed (Handled in recordAttendance) ---
+
+    // --- Month Validation Loop ---
+    cout << "Enter Month (1-12) to update: ";
+    while (true) {
+        month = getValidInt();
+        if (month >= 1 && month <= 12) {
+            break;
+        }
+        else {
+            cout << "Error: Month must be between 1 and 12. Try again: ";
+        }
+    }
+
+    // --- Update Process ---
+    for (int i = 0; i < attendanceCount; i++) {
+        if (attendanceRecords[i].employeeID == empId && attendanceRecords[i].month == month) {
+            found = true;
+
+            cout << "Current Days Present: " << attendanceRecords[i].daysPresent << "\n";
+            cout << "Current Days Absent: " << attendanceRecords[i].daysAbsent << "\n";
+
+            cout << "Enter New Days Present: ";
+            attendanceRecords[i].daysPresent = getValidInt();
+
+            cout << "Enter New Days Absent: ";
+            attendanceRecords[i].daysAbsent = getValidInt();
+
+            cout << "Attendance updated successfully!\n";
+            cout << "========================================\n";
+
+            saveAttendance();
+            break;
+        }
+    }
+
+    if (!found) {
+        cout << "Error: No record found for Month " << month << ".\n";
+        cout << "========================================\n";
+    }
+}//eyad
 
 void deleteAttendance() {
     long long id;
@@ -784,7 +804,7 @@ void deleteAttendance() {
         cout << "Error: No record found for Month " << month << ".\n";
         cout << "========================================\n";
     }
-}//eyad
+}//mostafa hadidi
 
 void deleteEmployee() {
     long long id;
